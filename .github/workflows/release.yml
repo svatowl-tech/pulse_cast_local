@@ -231,10 +231,10 @@ jobs:
           echo "$llvmBin" >> $env:GITHUB_PATH
 
       - name: Run Rust unit tests
-        run: cargo test
+        run: cargo test --workspace
 
-      - name: Build Rust release binary
-        run: cargo build --release
+      - name: Build Rust release binaries
+        run: cargo build --release --workspace
 
       - name: Download built Vite frontend
         uses: actions/download-artifact@v8
@@ -251,7 +251,8 @@ jobs:
           ARCHIVE="pulsecast-local-${TAG}-${{ matrix.target_label }}.tar.gz"
           mkdir -p dist_pack/static dist_pack/assets dist_pack/models dist_out
           cp "target/release/pulsecast-local${{ matrix.bin_ext }}" "dist_pack/pulsecast-local${{ matrix.bin_ext }}"
-          chmod +x "dist_pack/pulsecast-local${{ matrix.bin_ext }}"
+          cp "target/release/pulsecast-llama-worker${{ matrix.bin_ext }}" "dist_pack/pulsecast-llama-worker${{ matrix.bin_ext }}"
+          chmod +x "dist_pack/pulsecast-local${{ matrix.bin_ext }}" "dist_pack/pulsecast-llama-worker${{ matrix.bin_ext }}"
           cp -r web_dist/* dist_pack/static/
           cp static/overlay.html dist_pack/static/overlay.html
           cp .env.example README.md LICENSE CHANGELOG.md dist_pack/
@@ -265,6 +266,7 @@ jobs:
           $archive = "pulsecast-local-$tag-${{ matrix.target_label }}.zip"
           New-Item -ItemType Directory -Force -Path dist_pack/static, dist_pack/assets, dist_pack/models, dist_out | Out-Null
           Copy-Item "target/release/pulsecast-local.exe" "dist_pack/pulsecast-local.exe"
+          Copy-Item "target/release/pulsecast-llama-worker.exe" "dist_pack/pulsecast-llama-worker.exe"
           Copy-Item -Recurse -Force "web_dist/*" "dist_pack/static/"
           Copy-Item -Force "static/overlay.html" "dist_pack/static/overlay.html"
           Copy-Item -Force -Path @(".env.example", "README.md", "LICENSE", "CHANGELOG.md") -Destination "dist_pack/"

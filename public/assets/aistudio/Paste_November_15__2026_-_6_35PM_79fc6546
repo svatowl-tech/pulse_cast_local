@@ -1,0 +1,595 @@
+Rust Check & Test (windows-latest)
+failed 1 minute ago in 16m 22s
+Search logs
+2s
+10s
+21s
+1s
+0s
+0s
+2m 0s
+7m 15s
+6m 28s
+Run cargo test
+   Compiling cfg-if v1.0.5
+   Compiling windows-link v0.2.1
+   Compiling pin-project-lite v0.2.17
+   Compiling smallvec v1.16.5
+   Compiling getrandom v0.4.3
+   Compiling bytes v1.12.1
+   Compiling windows-sys v0.61.2
+   Compiling jobserver v0.1.35
+   Compiling itoa v1.0.19
+   Compiling cc v1.11.2
+   Compiling scopeguard v1.2.0
+   Compiling once_cell v1.21.4
+   Compiling futures-core v0.3.34
+   Compiling log v0.4.35
+   Compiling parking_lot_core v0.9.12
+   Compiling http v1.5.0
+   Compiling lock_api v0.4.14
+   Compiling parking_lot v0.12.5
+   Compiling cmake v0.1.58
+   Compiling zerofrom v0.1.8
+   Compiling tracing-core v0.1.36
+   Compiling futures-sink v0.3.34
+   Compiling stable_deref_trait v1.2.1
+   Compiling serde_core v1.0.229
+   Compiling yoke v0.8.4
+   Compiling slab v0.4.12
+   Compiling tracing v0.1.44
+   Compiling zerovec v0.11.9
+   Compiling libloading v0.8.9
+   Compiling aws-lc-sys v0.47.0
+   Compiling clang-sys v1.9.1
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling futures-task v0.3.34
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.5
+   Compiling tokio v1.54.1
+   Compiling bindgen v0.72.1
+   Compiling futures-util v0.3.34
+   Compiling httparse v1.10.1
+   Compiling memchr v2.8.3
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling tokio-util v0.7.20
+   Compiling tinystr v0.8.5
+   Compiling http-body v1.1.0
+   Compiling writeable v0.6.4
+   Compiling percent-encoding v2.3.2
+   Compiling litemap v0.8.3
+   Compiling utf_types v1.0.0
+   Compiling icu_locale_core v2.4.0
+   Compiling utf8_iter v1.1.0
+   Compiling potential_utf v0.1.6
+   Compiling zerotrie v0.2.5
+   Compiling zeroize v1.9.1
+   Compiling tower-service v0.3.3
+   Compiling icu_provider v2.4.0
+   Compiling icu_collections v2.4.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling hashbrown v0.17.1
+   Compiling winapi-util v0.1.11
+   Compiling simdutf8 v0.1.5
+   Compiling equivalent v1.0.3
+   Compiling same-file v1.0.6
+   Compiling indexmap v2.14.2
+   Compiling digest v0.10.7
+   Compiling zerocopy v0.8.63
+   Compiling icu_normalizer_data v2.4.0
+   Compiling getrandom v0.3.4
+   Compiling icu_properties_data v2.4.0
+   Compiling rustls-pki-types v1.16.0
+   Compiling mime v0.3.18
+   Compiling untrusted v0.9.0
+   Compiling try-lock v0.2.5
+   Compiling tower-layer v0.3.3
+   Compiling cpufeatures v0.2.17
+   Compiling fnv v1.0.7
+   Compiling atomic-waker v1.1.2
+   Compiling httpdate v1.0.3
+   Compiling h2 v0.4.20
+   Compiling want v0.3.2
+   Compiling windows-core v0.62.2
+   Compiling thiserror v2.0.21
+   Compiling serde v1.0.229
+   Compiling icu_properties v2.4.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_core v0.9.5
+   Compiling icu_normalizer v2.4.0
+   Compiling walkdir v2.5.0
+   Compiling form_urlencoded v1.2.2
+   Compiling sync_wrapper v1.0.2
+   Compiling futures-channel v0.3.34
+   Compiling subtle v2.6.1
+   Compiling core_detect v1.0.0
+   Compiling hyper v1.12.0
+   Compiling encoding_rs v0.8.44
+   Compiling whisper-rs-sys v0.15.0
+   Compiling llama-cpp-sys-2 v0.1.155
+   Compiling idna_adapter v1.2.2
+   Compiling rand_chacha v0.9.0
+   Compiling zmij v1.0.23
+   Compiling libc v0.2.191
+   Compiling http-body-util v0.1.5
+   Compiling aho-corasick v1.1.5
+   Compiling windows-registry v0.6.1
+   Compiling bitflags v2.13.2
+   Compiling regex-syntax v0.8.11
+   Compiling ipnet v2.12.2
+   Compiling unicase v2.10.0
+   Compiling base64 v0.23.1
+   Compiling hyper-util v0.1.21
+   Compiling regex-automata v0.4.18
+   Compiling mime_guess v2.0.5
+   Compiling serde_json v1.0.154
+   Compiling rand v0.9.5
+   Compiling idna v1.1.0
+   Compiling tower v0.5.3
+   Compiling sha1 v0.10.7
+   Compiling windows-threading v0.2.1
+   Compiling data-encoding v2.11.1
+   Compiling base64 v0.22.1
+   Compiling tungstenite v0.29.0
+   Compiling windows-future v0.3.2
+   Compiling url v2.5.8
+   Compiling windows-collections v0.3.2
+   Compiling windows-numerics v0.3.1
+   Compiling spin v0.9.9
+   Compiling num-conv v0.2.2
+   Compiling sha1_smol v1.0.1
+   Compiling ryu v1.0.23
+   Compiling time-core v0.1.9
+   Compiling fastrand v2.5.0
+   Compiling powerfmt v0.2.1
+   Compiling deranged v0.5.9
+   Compiling lazy_static v1.5.1
+   Compiling sharded-slab v0.1.7
+   Compiling time v0.3.55
+   Compiling tokio-websockets v0.13.3
+   Compiling serde_urlencoded v0.7.1
+   Compiling multer v3.1.0
+   Compiling enumflags2 v0.7.12
+   Compiling windows v0.62.2
+   Compiling uuid v1.29.2
+   Compiling num-traits v0.2.19
+   Compiling serde_with v3.24.0
+   Compiling tower-http v0.6.11
+   Compiling tokio-tungstenite v0.29.0
+   Compiling derive_more v2.1.1
+   Compiling matchers v0.2.0
+   Compiling axum-core v0.5.6
+   Compiling sha2 v0.10.9
+   Compiling nu-ansi-term v0.50.3
+   Compiling semver v1.0.28
+   Compiling serde_path_to_error v0.1.20
+   Compiling tracing-log v0.2.0
+   Compiling thread_local v1.1.10
+   Compiling rgb v0.8.53
+   Compiling matchit v0.8.4
+   Compiling http-range-header v0.4.2
+   Compiling dasp_sample v0.11.0
+   Compiling cpal v0.18.2
+   Compiling tower-http v0.7.1
+   Compiling axum v0.8.9
+   Compiling obws v0.15.0
+   Compiling whisper-rs v0.16.0
+   Compiling tracing-subscriber v0.3.23
+   Compiling chrono v0.4.45
+   Compiling regex v1.13.1
+   Compiling dotenvy v0.15.7
+   Compiling hound v3.5.1
+   Compiling aws-lc-rs v1.19.0
+   Compiling rustls v0.23.46
+   Compiling rustls-webpki v0.103.17
+   Compiling tokio-rustls v0.26.6
+   Compiling rustls-platform-verifier v0.7.1
+   Compiling hyper-rustls v0.27.10
+   Compiling reqwest v0.13.5
+   Compiling llama-cpp-2 v0.1.155
+   Compiling pulsecast-local v0.1.0 (D:\a\pulse_cast_local\pulse_cast_local)
+warning: function `save_wav_16k_mono` is never used
+   --> src\whisper_sub.rs:297:8
+    |
+297 | pub fn save_wav_16k_mono(path: &Path, samples: &[f32]) -> Result<(), String> {
+    |        ^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+error: linking with `link.exe` failed: exit code: 1169
+  |
+  = note: "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\x64\\link.exe" "/NOLOGO" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pulsecast-local/9bd6f7b6c4ccbdc2\\out\\rustctR3pOA\\symbols.o" "<17 object files omitted>" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\dotenvy\\4fed3ba1e054920e\\out/libdotenvy-4fed3ba1e054920e.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\hound\\5fdad150530751a3\\out/libhound-5fdad150530751a3.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\reqwest\\370202871b39c6a1\\out/libreqwest-370202871b39c6a1.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rustls-platform-verifier/3690b36b4272736c\\out/librustls_platform_verifier-3690b36b4272736c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\hyper-rustls/055ac1bab317be95\\out/libhyper_rustls-055ac1bab317be95.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tokio-rustls/05a2de8b2d06b8b2\\out/libtokio_rustls-05a2de8b2d06b8b2.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rustls/9e581decd363aad6\\out/librustls-9e581decd363aad6.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\subtle/947238b94ac877e7\\out/libsubtle-947238b94ac877e7.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rustls-webpki/957ed0e7dba1bf15\\out/libwebpki-957ed0e7dba1bf15.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\untrusted/09a35d10d66b4bf2\\out/libuntrusted-09a35d10d66b4bf2.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\aws-lc-rs/4a41d9452055a6fc\\out/libaws_lc_rs-4a41d9452055a6fc.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\aws-lc-sys/4ff7ce14da1bdb1d\\out/libaws_lc_sys-4ff7ce14da1bdb1d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rustls-pki-types/c8e39595b8f00b39\\out/librustls_pki_types-c8e39595b8f00b39.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zeroize/ef2d939e05cb1603\\out/libzeroize-ef2d939e05cb1603.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tower-http/853bfd189ce372fe\\out/libtower_http-853bfd189ce372fe.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\url/cab27053bbcf1a9d\\out/liburl-cab27053bbcf1a9d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\idna/3decd3828f976370\\out/libidna-3decd3828f976370.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\idna_adapter/86a3ba0ed0a04d68\\out/libidna_adapter-86a3ba0ed0a04d68.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_properties/906acf1f5ba82fbf\\out/libicu_properties-906acf1f5ba82fbf.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_properties_data/6049c129f363aec7\\out/libicu_properties_data-6049c129f363aec7.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_normalizer/0294e9fd56547f7c\\out/libicu_normalizer-0294e9fd56547f7c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_normalizer_data/418f2fa57c6429b0\\out/libicu_normalizer_data-418f2fa57c6429b0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_collections/0f12f3198c06731f\\out/libicu_collections-0f12f3198c06731f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\utf8_iter/3d032186a392d618\\out/libutf8_iter-3d032186a392d618.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\utf_types/f3e78200b723bf61\\out/libutf_types-f3e78200b723bf61.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\potential_utf/e215c7696ab9eb9a\\out/libpotential_utf-e215c7696ab9eb9a.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_provider/b658dae23a183805\\out/libicu_provider-b658dae23a183805.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\icu_locale_core/0b78665b7cfaafc3\\out/libicu_locale_core-0b78665b7cfaafc3.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tinystr/ee4b3a13603b687f\\out/libtinystr-ee4b3a13603b687f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\litemap/34f723a005a519f0\\out/liblitemap-34f723a005a519f0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\writeable/2065c09409dcd4f6\\out/libwriteable-2065c09409dcd4f6.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zerovec/c033b8ef7cc80791\\out/libzerovec-c033b8ef7cc80791.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zerotrie/3fd2a4d1c548c01c\\out/libzerotrie-3fd2a4d1c548c01c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\yoke/2d4155f8b774969a\\out/libyoke-2d4155f8b774969a.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\stable_deref_trait/26a9df4943aa0bc5\\out/libstable_deref_trait-26a9df4943aa0bc5.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zerofrom/5c0f05e561dc21bc\\out/libzerofrom-5c0f05e561dc21bc.rlib" "<sysroot>\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib/{libtest-*,libgetopts-*,librustc_std_workspace_std-*}.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tracing-subscriber\\2f3cc94ce0631d8f\\out/libtracing_subscriber-2f3cc94ce0631d8f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\sharded-slab/f83d0baa351781a8\\out/libsharded_slab-f83d0baa351781a8.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\lazy_static/1b4559e793036338\\out/liblazy_static-1b4559e793036338.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\matchers/cd3344d666ed637d\\out/libmatchers-cd3344d666ed637d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\nu-ansi-term/6081c9e29debf9fc\\out/libnu_ansi_term-6081c9e29debf9fc.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\thread_local/82cd30a73b644e81\\out/libthread_local-82cd30a73b644e81.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tracing-log/c295b5c2488e9838\\out/libtracing_log-c295b5c2488e9838.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tower-http\\3e0e34763c74a0f0\\out/libtower_http-3e0e34763c74a0f0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\http-range-header/da9aa700a4ca4588\\out/libhttp_range_header-da9aa700a4ca4588.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\mime_guess/4a2d57f33fc8e336\\out/libmime_guess-4a2d57f33fc8e336.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\unicase/462e71a3ac51759f\\out/libunicase-462e71a3ac51759f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\axum\\94cfcb3181869139\\out/libaxum-94cfcb3181869139.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\multer/8a50efb45c29ae1b\\out/libmulter-8a50efb45c29ae1b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\spin/e7186224e402c569\\out/libspin-e7186224e402c569.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde_path_to_error/aa9a44896b25874f\\out/libserde_path_to_error-aa9a44896b25874f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde_urlencoded/a9e12403b460db1b\\out/libserde_urlencoded-a9e12403b460db1b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\ryu/362924c16d1e40a5\\out/libryu-362924c16d1e40a5.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\form_urlencoded/26b03b01d27cad3f\\out/libform_urlencoded-26b03b01d27cad3f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\matchit/7a2d020173f579f1\\out/libmatchit-7a2d020173f579f1.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tokio-tungstenite/9f61f8ea26d96f75\\out/libtokio_tungstenite-9f61f8ea26d96f75.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tungstenite/371a430056096495\\out/libtungstenite-371a430056096495.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\data-encoding/b9d778e753d2f0c1\\out/libdata_encoding-b9d778e753d2f0c1.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rand/c77dcee65b690e45\\out/librand-c77dcee65b690e45.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rand_chacha/5cb95d5295e1f36d\\out/librand_chacha-5cb95d5295e1f36d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\ppv-lite86/204637c152909caa\\out/libppv_lite86-204637c152909caa.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zerocopy/eb9985d21e3251b0\\out/libzerocopy-eb9985d21e3251b0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rand_core/6cb455a0137cc572\\out/librand_core-6cb455a0137cc572.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\getrandom/c89d4c5b5490d711\\out/libgetrandom-c89d4c5b5490d711.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\sha1/cda38da7686381b0\\out/libsha1-cda38da7686381b0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\hyper-util/dd3173af05369bd7\\out/libhyper_util-dd3173af05369bd7.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-registry/9c7484958d94b25b\\out/libwindows_registry-9c7484958d94b25b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\base64/5cfcccbae95a0061\\out/libbase64-5cfcccbae95a0061.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\percent-encoding/147986d5fbff8d41\\out/libpercent_encoding-147986d5fbff8d41.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\ipnet/45c38c6987b844fa\\out/libipnet-45c38c6987b844fa.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\hyper/bcc97e3b3ecce2c1\\out/libhyper-bcc97e3b3ecce2c1.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\want/d70dbda2e87ce550\\out/libwant-d70dbda2e87ce550.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\try-lock/9fb9ae6cbe91034b\\out/libtry_lock-9fb9ae6cbe91034b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\futures-channel/ddfba1d712d6fc7f\\out/libfutures_channel-ddfba1d712d6fc7f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\h2/e4ae4310f0d4c5fd\\out/libh2-e4ae4310f0d4c5fd.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\indexmap/90a66a9ad24b2693\\out/libindexmap-90a66a9ad24b2693.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\equivalent/817acda4f49f1f63\\out/libequivalent-817acda4f49f1f63.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\hashbrown/291195c0299f0a32\\out/libhashbrown-291195c0299f0a32.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\fnv/43d6eee65dfcf3f8\\out/libfnv-43d6eee65dfcf3f8.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\httpdate/0fcfd83f0624e573\\out/libhttpdate-0fcfd83f0624e573.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\atomic-waker/736f356af5fe0190\\out/libatomic_waker-736f356af5fe0190.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\axum-core/ead062759b6cee33\\out/libaxum_core-ead062759b6cee33.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\mime/dbe7e4ea7e58d036\\out/libmime-dbe7e4ea7e58d036.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\http-body-util/d170ac7aba0f2b72\\out/libhttp_body_util-d170ac7aba0f2b72.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\http-body/fca140f26ea3cb7a\\out/libhttp_body-fca140f26ea3cb7a.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tower/a1d1a36808be030a\\out/libtower-a1d1a36808be030a.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\sync_wrapper/d9c86488460d1553\\out/libsync_wrapper-d9c86488460d1553.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tower-layer/f1a0bc2cdcd5644d\\out/libtower_layer-f1a0bc2cdcd5644d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tower-service/3d7c7b0b9a331c52\\out/libtower_service-3d7c7b0b9a331c52.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs\\dd41809192388a39\\out/libwhisper_rs-dd41809192388a39.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/09726febce6ba72d\\out/libwhisper_rs_sys-09726febce6ba72d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\cpal\\011aa53005e22f9d\\out/libcpal-011aa53005e22f9d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\dasp_sample/e1fbc3397d886afb\\out/libdasp_sample-e1fbc3397d886afb.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows/a1da5ea29194a92c\\out/libwindows-a1da5ea29194a92c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-core/daa1a75e89846c7e\\out/libwindows_core-daa1a75e89846c7e.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-strings/588e1707a6e83a11\\out/libwindows_strings-588e1707a6e83a11.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-result/c69fee430025f368\\out/libwindows_result-c69fee430025f368.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\obws\\dada599c408e5240\\out/libobws-dada599c408e5240.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\rgb/18a51b80b7ff3b4b\\out/librgb-18a51b80b7ff3b4b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde_with/f9b2b587a737b290\\out/libserde_with-f9b2b587a737b290.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\derive_more/ac28714e003590b6\\out/libderive_more-ac28714e003590b6.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\bitflags/440bbec0e18edf04\\out/libbitflags-440bbec0e18edf04.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\time/fbbd30c989761225\\out/libtime-fbbd30c989761225.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\powerfmt/48c7c2630e653b56\\out/libpowerfmt-48c7c2630e653b56.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\num-conv/7d23a6346529a94e\\out/libnum_conv-7d23a6346529a94e.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\deranged/41f3c165a66b14cd\\out/libderanged-41f3c165a66b14cd.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\time-core/2dbeb72a4162b022\\out/libtime_core-2dbeb72a4162b022.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\sha2/d158954a92538680\\out/libsha2-d158954a92538680.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\cpufeatures/aeb414791b4476c5\\out/libcpufeatures-aeb414791b4476c5.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\digest/17f4af8e01c08c8c\\out/libdigest-17f4af8e01c08c8c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\block-buffer/baf2d271fd3d3760\\out/libblock_buffer-baf2d271fd3d3760.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\crypto-common/ee8877bfa3b4fc35\\out/libcrypto_common-ee8877bfa3b4fc35.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\generic-array/baf035139e2c9acf\\out/libgeneric_array-baf035139e2c9acf.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\typenum/20367c5eaf97f522\\out/libtypenum-20367c5eaf97f522.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tokio-websockets/4aa0984979194d44\\out/libtokio_websockets-4aa0984979194d44.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\fastrand/4f47e66eea7ec3d5\\out/libfastrand-4f47e66eea7ec3d5.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\httparse/9e0500f9eafd15d8\\out/libhttparse-9e0500f9eafd15d8.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\sha1_smol/1c32405d7cc98d38\\out/libsha1_smol-1c32405d7cc98d38.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tokio-util/cd795f8941197b1b\\out/libtokio_util-cd795f8941197b1b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\http/e4e0d57fa2faffa1\\out/libhttp-e4e0d57fa2faffa1.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\base64/c158f9c502e5d659\\out/libbase64-c158f9c502e5d659.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\semver/b44653e6e5533877\\out/libsemver-b44653e6e5533877.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\futures-util/a45396b2ef1a0bea\\out/libfutures_util-a45396b2ef1a0bea.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\slab/f171a691240242cf\\out/libslab-f171a691240242cf.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\futures-sink/98462bd3dc79ac28\\out/libfutures_sink-98462bd3dc79ac28.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\futures-task/bec83f4f363dbb38\\out/libfutures_task-bec83f4f363dbb38.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\futures-core/4c1db5620321a6ba\\out/libfutures_core-4c1db5620321a6ba.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tokio\\0a7c33fdc777d34f\\out/libtokio-0a7c33fdc777d34f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\socket2/70e6f5f60568b476\\out/libsocket2-70e6f5f60568b476.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\bytes/11479dc0da910cef\\out/libbytes-11479dc0da910cef.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\mio/dace3cb869850751\\out/libmio-dace3cb869850751.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-sys/dbe2fe6d99e3d901\\out/libwindows_sys-dbe2fe6d99e3d901.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\parking_lot/925d587f77148514\\out/libparking_lot-925d587f77148514.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\parking_lot_core/e8dc63840c645589\\out/libparking_lot_core-e8dc63840c645589.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\smallvec/08178e681bbad27d\\out/libsmallvec-08178e681bbad27d.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\lock_api/bec5e3f13f1e6398\\out/liblock_api-bec5e3f13f1e6398.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\regex\\68a7f809f0b508f8\\out/libregex-68a7f809f0b508f8.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\regex-automata/bb339c2d769c1346\\out/libregex_automata-bb339c2d769c1346.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\aho-corasick/b8a3ccd6e34b52aa\\out/libaho_corasick-b8a3ccd6e34b52aa.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\regex-syntax/52838b168ecdd46c\\out/libregex_syntax-52838b168ecdd46c.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\uuid\\51a2abd724ac40d9\\out/libuuid-51a2abd724ac40d9.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\getrandom/682398edfeb6fc1b\\out/libgetrandom-682398edfeb6fc1b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde_json\\e87dfe3243ac52b7\\out/libserde_json-e87dfe3243ac52b7.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\memchr/3487370bb5910fc2\\out/libmemchr-3487370bb5910fc2.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\itoa/b3ce467e042e560e\\out/libitoa-b3ce467e042e560e.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\zmij/4473c5315a992209\\out/libzmij-4473c5315a992209.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-2\\5fe787fb1cb92852\\out/libllama_cpp_2-5fe787fb1cb92852.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\encoding_rs/2e10cc05b7d598f0\\out/libencoding_rs-2e10cc05b7d598f0.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\scopeguard/7bbfd62634c6fcab\\out/libscopeguard-7bbfd62634c6fcab.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\simdutf8/2e3d087c253519b2\\out/libsimdutf8-2e3d087c253519b2.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\core_detect/5206b2636f9e935b\\out/libcore_detect-5206b2636f9e935b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\cfg-if/c8bd55c15862100f\\out/libcfg_if-c8bd55c15862100f.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tracing/ad0997acb38792db\\out/libtracing-ad0997acb38792db.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\log/3240f6bd0eff7093\\out/liblog-3240f6bd0eff7093.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pin-project-lite/005d564969f928d9\\out/libpin_project_lite-005d564969f928d9.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\thiserror/8044b48efaa9a0aa\\out/libthiserror-8044b48efaa9a0aa.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\enumflags2/1a78069b86046033\\out/libenumflags2-1a78069b86046033.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\tracing-core/b8ae05b9b3fdcee7\\out/libtracing_core-b8ae05b9b3fdcee7.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\once_cell/eab454589b4b43eb\\out/libonce_cell-eab454589b4b43eb.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/2cb21fe09513ad2b\\out/libllama_cpp_sys_2-2cb21fe09513ad2b.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\chrono\\c619ff1fb4a5a0aa\\out/libchrono-c619ff1fb4a5a0aa.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\windows-link/2970197bc9f37b90\\out/libwindows_link-2970197bc9f37b90.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\num-traits/ad4d4eb5c6e15e02\\out/libnum_traits-ad4d4eb5c6e15e02.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde/ec6b84ee3d1443af\\out/libserde-ec6b84ee3d1443af.rlib" "D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\serde_core/00340a7e196e4330\\out/libserde_core-00340a7e196e4330.rlib" "<sysroot>\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib/{libstd-*,libpanic_unwind-*,libcfg_if-*,libwindows_link-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libunwind-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "kernel32.lib" "advapi32.lib" "advapi32.lib" "kernel32.lib" "kernel32.lib" "ntdll.lib" "userenv.lib" "ws2_32.lib" "dbghelp.lib" "synchronization.lib" "/defaultlib:msvcrt" "/NXCOMPAT" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out\\lib" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out\\lib64" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out\\build\\common" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\llama-cpp-sys-2/5602d274c73f82b4\\out\\build\\common\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\aws-lc-sys/8e2b9c70ac7f4d8c\\out" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ALL_BUILD.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ALL_BUILD.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ALL_BUILD.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ALL_BUILD.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ALL_BUILD.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdASM" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdC" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdC\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdC\\Debug\\CompilerIdC.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdC\\tmp" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdCXX" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdCXX\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\CompilerIdCXX\\tmp" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\VCTargetsPath" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\VCTargetsPath\\x64" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\VCTargetsPath\\x64\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\VCTargetsPath\\x64\\Debug\\VCTargetsPath.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\x64" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\4.5.0\\x64\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\81cb2bfb94a73782805bebe25deb8c9b" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\8a5ff7d80fe51d9a638bf60787f6759a" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\a1b3e4853cfd1f61105098bac7c9715e" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\c6f1338ec81cd5cf1d14c53e797009a4" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\CMakeScratch" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\e2e5f40b59d7bea1ca99eee478f9bd0b" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\CMakeFiles\\pkgRedirects" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\ALL_BUILD.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\ALL_BUILD.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\ALL_BUILD.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\ALL_BUILD.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\ALL_BUILD.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\CMakeFiles" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\INSTALL.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\INSTALL.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\INSTALL.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\INSTALL.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\INSTALL.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\CMakeFiles" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir\\Release\\ggml-base.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-base.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\CMakeFiles" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\INSTALL.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\INSTALL.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\INSTALL.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\INSTALL.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu\\INSTALL.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Release\\ggml-cpu" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Release\\ggml-cpu\\arch" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Release\\ggml-cpu\\arch\\x86" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\Release\\ggml-cpu.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml-cpu.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir\\Release\\ggml.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\ggml.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\INSTALL.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\INSTALL.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\INSTALL.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\INSTALL.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\INSTALL.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ggml\\src\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\INSTALL.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\INSTALL.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\INSTALL.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\INSTALL.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\INSTALL.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\CMakeFiles" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\INSTALL.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\INSTALL.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\INSTALL.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\INSTALL.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\INSTALL.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir\\Release\\whisper.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\src\\whisper.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\ALL_BUILD" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\ALL_BUILD\\ALL_BUILD.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\INSTALL" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\INSTALL\\INSTALL.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\ZERO_CHECK" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\x64\\Release\\ZERO_CHECK\\ZERO_CHECK.tlog" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ZERO_CHECK.dir" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ZERO_CHECK.dir\\Debug" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ZERO_CHECK.dir\\MinSizeRel" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ZERO_CHECK.dir\\Release" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out\\build\\ZERO_CHECK.dir\\RelWithDebInfo" "/LIBPATH:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\whisper-rs-sys/df3725237037f297\\out" "/LIBPATH:C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\atlmfc\\lib\\x64" "/OUT:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pulsecast-local/9bd6f7b6c4ccbdc2\\out\\pulsecast_local-9bd6f7b6c4ccbdc2.exe" "/OPT:REF,NOICF" "/DEBUG" "/PDBALTPATH:%_PDB%" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\intrinsic.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\liballoc.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\libcore.natvis" "/NATVIS:<sysroot>\\lib\\rustlib\\etc\\libstd.natvis" "/NATVIS:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pulsecast-local/9bd6f7b6c4ccbdc2\\out\\rustctR3pOA\\pulsecast_local-0.natvis" "/NATVIS:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pulsecast-local/9bd6f7b6c4ccbdc2\\out\\rustctR3pOA\\pulsecast_local-1.natvis" "/NATVIS:D:\\a\\pulse_cast_local\\pulse_cast_local\\target\\debug\\build\\pulsecast-local/9bd6f7b6c4ccbdc2\\out\\rustctR3pOA\\pulsecast_local-2.natvis"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp16_to_fp32_row already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp32_to_fp16_row already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_bf16_to_fp32_row already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp32_to_bf16_row_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log_callback_default already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_abort already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_abs already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_abs_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_acc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_acc_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add1_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add_cast already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add_id already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add_rel_pos already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_add_rel_pos_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_aligned_free already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_aligned_malloc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_arange already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_are_same_shape already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_are_same_stride already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_argmax already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_argsort already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_argsort_top_k already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_bf16_to_fp32 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_blck_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_build_backward_expand already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_build_forward_expand already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_can_fuse_subgraph_ext already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_can_repeat already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cast already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_ceil already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_ceil_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_clamp already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_commit already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_concat already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cont already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cont_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cont_2d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cont_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cont_4d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_1d_dw already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_1d_dw_ph already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_1d_ph already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d_direct already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d_dw already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d_dw_direct already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d_s1_ph already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_2d_sk_p0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_3d_direct already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_transpose_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_conv_transpose_2d_p0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cos already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cos_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_count_equal already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cpy already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cross_entropy_loss already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cross_entropy_loss_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cumsum already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_custom_4d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_custom_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cycles already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_cycles_per_ms already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_diag already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_diag_mask_inf already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_diag_mask_inf_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_diag_mask_zero already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_diag_mask_zero_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_div already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_div_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_dup already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_dup_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_dup_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_element_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_elu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_elu_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_exp already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_exp_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_expm1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_expm1_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fill already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fill_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_flash_attn_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_flash_attn_ext already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_flash_attn_ext_add_sinks already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_flash_attn_ext_get_prec already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_flash_attn_ext_set_prec already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_floor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_floor_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fopen already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_format_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp16_to_fp32 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp32_to_bf16 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp32_to_bf16_row already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_fp32_to_fp16 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_free already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_ftype_to_ggml_type already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gated_linear_attn already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_erf already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_erf_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_erf_swapped already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_quick already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_quick_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_quick_swapped already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_geglu_swapped already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu_erf already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu_erf_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu_quick already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_gelu_quick_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_data already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_data_f32 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_first_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_glu_op already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_max_tensor_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_mem_buffer already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_mem_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_next_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_no_alloc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_rel_pos already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_rows already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_rows_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_type_traits already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_get_unary_op already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_glu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_glu_op_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_glu_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_add_node already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_clear already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_cpy already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_dump_dot already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_dup already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_get_grad already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_get_grad_acc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_get_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_n_nodes already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_node already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_nodes already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_overhead already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_overhead_custom already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_print already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_reset already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_graph_view already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_group_norm already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_group_norm_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_guid_matches already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hardsigmoid already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hardswish already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hash_set_free already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hash_set_new already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hash_set_reset already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_hash_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_im2col already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_im2col_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_im2col_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_init already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_interpolate already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous_1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous_2 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous_channels already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguous_rows already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_contiguously_allocated already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_empty already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_matrix already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_permuted already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_quantized already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_scalar already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_transposed already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_is_vector already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_l2_norm already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_l2_norm_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_leaky_relu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log_get already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log_internal already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_log_set already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom1_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom2 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom2_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom3 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_map_custom3_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mean already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mul already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mul_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mul_mat already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mul_mat_id already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_mul_mat_set_prec already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_n_dims already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_nbytes already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_nbytes_pad already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_neg already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_neg_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_nelements already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_buffer already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_graph already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_graph_custom already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_tensor_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_tensor_2d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_tensor_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_new_tensor_4d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_norm already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_norm_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_nrows already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_op_desc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_op_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_op_symbol already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_opt_step_adamw already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_opt_step_sgd already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_out_prod already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pad already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pad_circular already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pad_ext already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pad_ext_circular already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pad_reflect_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_permute already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pool_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pool_2d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_pool_2d_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_print_backtrace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_print_object already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_print_objects already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_quantize_chunk already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_quantize_free already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_quantize_init already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_quantize_requires_imatrix already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_reglu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_reglu_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_reglu_swapped already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_relu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_relu_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_repeat already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sigmoid_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_silu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_silu_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_silu_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sin already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sin_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_add_sinks already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_ext already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_ext_back already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_ext_back_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_ext_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_soft_max_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_softplus already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_softplus_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_solve_tri already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sqr already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sqr_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sqrt already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sqrt_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_ssm_conv already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_ssm_scan already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_status_to_string already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_step already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_step_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sub already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sub_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sum already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_sum_rows already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_swiglu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_swiglu_oai already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_swiglu_split already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_swiglu_swapped already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_tanh already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_tanh_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_tensor_overhead already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_threadpool_params_default already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_threadpool_params_init already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_threadpool_params_match already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_time_init already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_time_ms already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_time_us already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_timestep_embedding already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_top_k already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_transpose already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_tri already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_trunc already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_trunc_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_type_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_type_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_type_sizef already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_unary already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_unary_inplace already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_unary_op_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_unravel_index already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_upscale already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_upscale_ext already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_used_mem already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_version already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_view_1d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_view_2d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_view_3d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_view_4d already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_view_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_win_part already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_win_unpart already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml.c.obj) : error LNK2005: ggml_xielu already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml.c.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_alloc_buffer already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_clear already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_copy_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_free already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_alignment already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_alloc_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_base already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_max_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_type already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_get_usage already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_init already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_init_tensor already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_is_host already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_is_multi_buffer already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_reset already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buffer_set_usage already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_alloc_buffer already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_get_alignment already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_get_alloc_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_get_device already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_get_max_size already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_is_host already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_buft_name already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_compare_graph_backend already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_cpu_buffer_from_ptr already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_cpu_buffer_type already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_dev_backend_reg already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_dev_buffer_from_host_ptr already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_dev_buffer_type already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_dev_description already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-backend.obj) : error LNK2005: ggml_backend_dev_get_props already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-backend.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_iq4_nl already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_iq4_xs already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_mxfp4 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q2_K already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q3_K already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q4_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q4_1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q4_K already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q5_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q5_1 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q5_K already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q6_K already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_q8_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_iq2_s_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_iq3_s_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_iq3_xxs_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_iq4_nl_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_iq4_xs_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_mxfp4_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q2_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q3_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q4_0_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q4_1_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q4_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q5_0_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q5_1_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q5_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q6_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q8_0_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q8_1_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_q8_K_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_tq1_0_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_row_tq2_0_ref already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_tq1_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+          libllama_cpp_sys_2-2cb21fe09513ad2b.rlib(ggml-quants.obj) : error LNK2005: quantize_tq2_0 already defined in libwhisper_rs_sys-09726febce6ba72d.rlib(ggml-quants.obj)
+             Creating library D:\a\pulse_cast_local\pulse_cast_local\target\debug\build\pulsecast-local\9bd6f7b6c4ccbdc2\out\pulsecast_local-9bd6f7b6c4ccbdc2.lib and object D:\a\pulse_cast_local\pulse_cast_local\target\debug\build\pulsecast-local\9bd6f7b6c4ccbdc2\out\pulsecast_local-9bd6f7b6c4ccbdc2.exp
+          D:\a\pulse_cast_local\pulse_cast_local\target\debug\build\pulsecast-local\9bd6f7b6c4ccbdc2\out\pulsecast_local-9bd6f7b6c4ccbdc2.exe : fatal error LNK1169: one or more multiply defined symbols found
+          
+
+warning: `pulsecast-local` (bin "pulsecast-local" test) generated 1 warning
+error: could not compile `pulsecast-local` (bin "pulsecast-local" test) due to 1 previous error; 1 warning emitted
+Error: Process completed with exit code 1.

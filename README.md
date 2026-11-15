@@ -107,8 +107,10 @@ mkdir -p models
 ```bash
 npm install && npm run build
 mkdir -p static && cp -r dist/* static/
+cargo build --release --workspace
 cargo run --release
 ```
+> Команда `cargo build --release --workspace` собирает основной сервер `pulsecast-local` и изолированный воркер `pulsecast-llama-worker` (вынесенный в отдельный процесс во избежание конфликта нативных символов `ggml` между `whisper-rs` и `llama-cpp-2`).
 По умолчанию Rust-сервер слушает `http://127.0.0.1:8080/` (чтобы открывать пульт со смартфона по Wi-Fi, задайте `PULSECAST_HOST="0.0.0.0"` в `.env`).
 
 ---

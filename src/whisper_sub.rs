@@ -294,6 +294,7 @@ pub fn decode_wav_to_16k_mono(bytes: &[u8]) -> Result<Vec<f32>, String> {
 }
 
 /// Записывает аудиофрагмент в WAV-файл на диске с помощью `hound`.
+#[allow(dead_code)]
 pub fn save_wav_16k_mono(path: &Path, samples: &[f32]) -> Result<(), String> {
     let spec = hound::WavSpec {
         channels: 1,

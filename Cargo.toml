@@ -22,9 +22,7 @@ serde_json = "1.0.154"
 # HTTP-клиент для OpenAI-совместимого API llama.cpp (llama-server)
 reqwest = { version = "0.13.5", features = ["json"] }
 
-# Локальные ИИ и распознавание речи (обязательная линковка по умолчанию)
-llama-cpp-2 = "=0.1.155"
-llama-cpp-sys-2 = "=0.1.155"
+# Локальное распознавание речи (офлайн Whisper; встроенный llama-cpp-2 вынесен в воркер crates/llama-worker во избежание конфликта символов ggml)
 whisper-rs = "0.16.0"
 
 # Захват аудио в реальном времени и работа с WAV-файлами
@@ -42,3 +40,8 @@ uuid = { version = "1.29.2", features = ["v4", "serde"] }
 chrono = { version = "0.4.45", features = ["serde"] }
 regex = "1.13.1"
 thiserror = "2.0.21"
+
+[workspace]
+members = [".", "crates/llama-worker"]
+default-members = ["."]
+resolver = "2"

@@ -12,18 +12,15 @@ use crate::state::{
 };
 use crate::whisper_sub::WhisperController;
 use chrono::Utc;
-#[allow(deprecated)]
-use llama_cpp_2::model::Special;
-use llama_cpp_2::{
-    context::params::LlamaContextParams,
-    llama_backend::LlamaBackend,
-    llama_batch::LlamaBatch,
-    model::{params::LlamaModelParams, AddBos, LlamaModel},
-    sampling::LlamaSampler,
-};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-use std::{num::NonZeroU32, path::Path, sync::Arc};
+use std::{
+    path::{Path, PathBuf},
+    process::Stdio,
+    sync::Arc,
+    time::Duration,
+};
+use tokio::{io::AsyncWriteExt, process::Command};
 use uuid::Uuid;
 
 /// Ответ ИИ-агента для отображения в дашборде.
@@ -398,8 +395,48 @@ async fn run_http_llama_server(
     Ok((content, calls))
 }
 
-/// Прямой инференс GGUF-модели в процессе через `llama-cpp-2` (внутри `spawn_blocking`).
-#[allow(deprecated)]
+#[derive(Deserialize)]
+struct EmbeddedWorkerResponse {
+    ok: bool,
+    reply: Option<String>,
+    #[serde(default)]
+    tool_calls: Vec<EmbeddedWorkerToolCall>,
+    error: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct EmbeddedWorkerToolCall {
+    name: String,
+    arguments: Value,
+}
+
+fn resolve_llama_worker_bin() -> PathBuf {
+    if let Ok(explicit) = std::env::var("PULSECAST_LLAMA_WORKER") {
+        let trimmed = explicit.trim();
+        if !trimmed.is_empty() {
+            return PathBuf::from(trimmed);
+        }
+    }
+
+    let bin_name = if cfg!(windows) {
+        "pulsecast-llama-worker.exe"
+    } else {
+        "pulsecast-llama-worker"
+    };
+
+    if let Ok(current_exe) = std::env::current_exe() {
+        if let Some(dir) = current_exe.parent() {
+            let sibling = dir.join(bin_name);
+            if sibling.exists() {
+                return sibling;
+            }
+        }
+    }
+
+    PathBuf::from(bin_name)
+}
+
+/// Прямой инференс GGUF-модели в изолированном процессе `pulsecast-llama-worker`.
 async fn run_embedded_llama(
     model_path: &str,
     prompt: &str,
@@ -407,82 +444,62 @@ async fn run_embedded_llama(
     if !Path::new(model_path).exists() {
         return Err(format!("Файл GGUF-модели не найден: {}", model_path));
     }
-    let m_path = model_path.to_string();
-    let user_prompt = prompt.to_string();
 
-    tokio::task::spawn_blocking(move || {
-        let backend = LlamaBackend::init().map_err(|e| format!("LlamaBackend::init: {:?}", e))?;
-        let model_params = LlamaModelParams::default();
-        let model = LlamaModel::load_from_file(&backend, &m_path, &model_params)
-            .map_err(|e| format!("load_from_file: {:?}", e))?;
+    let worker_bin = resolve_llama_worker_bin();
+    let mut child = Command::new(&worker_bin)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|e| format!("Не удалось запустить воркер '{}': {}", worker_bin.display(), e))?;
 
-        let ctx_params = LlamaContextParams::default()
-            .with_n_ctx(Some(NonZeroU32::new(2048).unwrap()));
-        let mut ctx = model
-            .new_context(&backend, ctx_params)
-            .map_err(|e| format!("new_context: {:?}", e))?;
-
-        let system_prompt = format!(
-            "Верни ТОЛЬКО JSON: {{\"reply\":\"...\",\"tool_calls\":[{{\"name\":\"...\",\"arguments\":{{...}}}}]}}. Доступные инструменты: change_scene, trigger_alert, send_chat_message, toggle_subtitles, set_theme, play_sound, start_minigame, avatar_action, toggle_plugin, configure_plugin, trigger_plugin_effect, upsert_custom_plugin, update_widget_layout. Запрос: {}\nJSON:",
-            user_prompt
-        );
-
-        let tokens = model
-            .str_to_token(&system_prompt, AddBos::Always)
-            .map_err(|e| format!("str_to_token: {:?}", e))?;
-
-        let mut batch = LlamaBatch::new(2048, 1);
-        let last_idx = tokens.len().saturating_sub(1);
-        for (i, &tok) in tokens.iter().enumerate() {
-            batch
-                .add(tok, i as i32, &[0], i == last_idx)
-                .map_err(|e| format!("batch.add: {:?}", e))?;
-        }
-        ctx.decode(&mut batch).map_err(|e| format!("decode: {:?}", e))?;
-
-        let mut sampler = LlamaSampler::chain_simple([
-            LlamaSampler::temp(0.2),
-            LlamaSampler::dist(42),
-        ]);
-
-        let mut raw_out = String::new();
-        let mut n_cur = tokens.len() as i32;
-        for _ in 0..256 {
-            let tok = sampler.sample(&ctx, batch.n_tokens() - 1);
-            if model.is_eog_token(tok) {
-                break;
-            }
-            if let Ok(piece) = model.token_to_str(tok, Special::Plaintext) {
-                raw_out.push_str(&piece);
-                if raw_out.ends_with('}') && serde_json::from_str::<Value>(&raw_out).is_ok() {
-                    break;
-                }
-            }
-            batch.clear();
-            batch
-                .add(tok, n_cur, &[0], true)
-                .map_err(|e| format!("batch.add step: {:?}", e))?;
-            n_cur += 1;
-            ctx.decode(&mut batch).map_err(|e| format!("decode step: {:?}", e))?;
-        }
-
-        let parsed: Value = serde_json::from_str(raw_out.trim())
-            .map_err(|_| format!("Модель вернула не-JSON ответ: {}", raw_out))?;
-        let reply = parsed["reply"].as_str().unwrap_or("Выполнено локальной моделью.").to_string();
-        let mut calls = Vec::new();
-        if let Some(arr) = parsed["tool_calls"].as_array() {
-            for tc in arr {
-                let name = tc["name"].as_str().unwrap_or("").to_string();
-                let args = tc["arguments"].clone();
-                if !name.is_empty() {
-                    calls.push((name, args));
-                }
-            }
-        }
-        Ok((reply, calls))
+    let payload = json!({
+        "model_path": model_path,
+        "prompt": prompt,
     })
-    .await
-    .map_err(|e| e.to_string())?
+    .to_string();
+
+    if let Some(mut stdin) = child.stdin.take() {
+        stdin
+            .write_all(payload.as_bytes())
+            .await
+            .map_err(|e| format!("Ошибка передачи запроса воркеру: {}", e))?;
+        let _ = stdin.shutdown().await;
+    }
+
+    let output = tokio::time::timeout(Duration::from_secs(90), child.wait_with_output())
+        .await
+        .map_err(|_| "Таймаут инференса pulsecast-llama-worker (90 сек)".to_string())?
+        .map_err(|e| format!("Ошибка ожидания pulsecast-llama-worker: {}", e))?;
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let parsed: EmbeddedWorkerResponse = serde_json::from_str(stdout.trim()).map_err(|_| {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        format!(
+            "Некорректный ответ pulsecast-llama-worker (код {:?}): {} {}",
+            output.status.code(),
+            stdout.trim(),
+            stderr.trim()
+        )
+    })?;
+
+    if !parsed.ok {
+        return Err(parsed
+            .error
+            .unwrap_or_else(|| "Неизвестная ошибка embedded-воркера".to_string()));
+    }
+
+    let reply = parsed
+        .reply
+        .unwrap_or_else(|| "Выполнено локальной моделью.".to_string());
+    let calls = parsed
+        .tool_calls
+        .into_iter()
+        .filter(|tc| !tc.name.is_empty())
+        .map(|tc| (tc.name, tc.arguments))
+        .collect();
+
+    Ok((reply, calls))
 }
 
 /// Исполняет список вызовов инструментов на состоянии сервера.
