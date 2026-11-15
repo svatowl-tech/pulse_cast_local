@@ -12,12 +12,13 @@ use crate::state::{
 };
 use crate::whisper_sub::WhisperController;
 use chrono::Utc;
+#[allow(deprecated)]
+use llama_cpp_2::model::Special;
 use llama_cpp_2::{
     context::params::LlamaContextParams,
     llama_backend::LlamaBackend,
     llama_batch::LlamaBatch,
-    #[allow(deprecated)]
-    model::{params::LlamaModelParams, AddBos, LlamaModel, Special},
+    model::{params::LlamaModelParams, AddBos, LlamaModel},
     sampling::LlamaSampler,
 };
 use serde::{Deserialize, Serialize};
