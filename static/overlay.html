@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseCast OBS Overlay</title>
+  <style>
+    /* Прозрачный корень для OBS Browser Source */
+    :root {
+      --ov-bg: rgba(15, 23, 42, 0.78);
+      --ov-border: rgba(148, 163, 184, 0.25);
+      --ov-text: #F8FAFC;
+      --ov-muted: #CBD5E1;
+      --ov-accent: #3B82F6;
+      --ov-radius: 12px;
+      --ov-opacity: 0.92;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent !important;
+      color: var(--ov-text);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    #overlay-root {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Слой Canvas 2D для плагинов (падающие звёзды, частицы) и физики Stream Avatars */
+    #plugin-canvas, #avatar-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    #plugin-canvas { z-index: 5; }
+    #avatar-canvas { z-index: 25; }
+
+    /* Базовый класс перемещаемого виджета */
+    .widget-box {
+      position: absolute;
+      transform-origin: top left;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      opacity: var(--ov-opacity);
+    }
+
+    /* Визуальные обёртки (Wrappers) */
+    .wrap-none { background: transparent; border: none; padding: 8px; }
+    .wrap-glass_bar {
+      background: var(--ov-bg);
+      border: 1px solid var(--ov-border);
+      border-radius: var(--ov-radius);
+      backdrop-filter: blur(10px);
+      padding: 12px 16px;
+    }
+    .wrap-neon_frame {
+      background: rgba(9, 13, 28, 0.86);
+      border: 1px solid var(--ov-accent);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
+      border-radius: var(--ov-radius);
+      padding: 14px 18px;
+    }
+    .wrap-retro_crt {
+      background: rgba(6, 12, 18, 0.92);
+      border: 2px solid #22C55E;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 10px 14px;
+    }
+    .wrap-minimal_edge {
+      background: var(--ov-bg);
+      border: 1px solid var(--ov-border);
+      border-radius: 6px;
+      padding: 10px 14px;
+    }
+
+    .tabular { font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', monospace; }
+
+    /* Алерт доната */
+    #w-alerts {
+      min-width: 340px;
+      max-width: 540px;
+      transform: translate(-50%, 0);
+      text-align: center;
+      display: none;
+    }
+    #w-alerts.visible { display: block; }
+    #w-alerts.anim-pop { animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    #w-alerts.anim-slide_up { animation: slideUpIn 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    #w-alerts.anim-zoom { animation: zoomIn 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    #w-alerts.anim-glitch { animation: glitchIn 0.35s steps(4, end); }
+    @keyframes popIn {
+      from { opacity: 0; transform: translate(-50%, -14px) scale(0.92); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+    @keyframes slideUpIn {
+      from { opacity: 0; transform: translate(-50%, 28px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: translate(-50%, 0) scale(0.72); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+    @keyframes glitchIn {
+      0% { opacity: 0; transform: translate(-53%, 2px); }
+      40% { opacity: 1; transform: translate(-47%, -2px); }
+      70% { transform: translate(-51%, 1px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
+    }
+    .alert-media { max-width: 240px; max-height: 150px; object-fit: contain; margin: 0 auto 8px; border-radius: 8px; display: none; }
+    .alert-title { font-size: 18px; font-weight: 700; color: var(--ov-accent); margin-bottom: 4px; }
+    .alert-msg { font-size: 14px; color: var(--ov-text); line-height: 1.4; }
+
+    /* Цель сборов */
+    #w-goal { width: 320px; display: flex; flex-direction: column; gap: 8px; }
+    .goal-bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden; margin-top: 4px; }
+    .goal-bar-fill { height: 100%; background: var(--ov-accent); width: 0%; transition: width 0.35s ease; }
+
+    /* Чат */
+    #w-chat { width: 340px; max-height: 320px; overflow: hidden; display: flex; flex-direction: column; gap: 6px; }
+    .chat-line { font-size: 13px; line-height: 1.35; word-break: break-word; }
+    .chat-plat { font-size: 10px; opacity: 0.7; margin-right: 4px; }
+
+    /* Субтитры Whisper */
+    #w-subtitles {
+      max-width: 780px;
+      min-width: 360px;
+      transform: translate(-50%, 0);
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      display: none;
+    }
+    #w-subtitles.visible { display: block; }
+
+    /* Лента последних алертов (RutonyChat Alerts List) */
+    #w-alerts_list { width: 290px; font-size: 12px; }
+    .alert-list-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  </style>
+  <style id="plugin-custom-css"></style>
+</head>
+<body>
+  <div id="overlay-root">
+    <canvas id="plugin-canvas"></canvas>
+    <canvas id="avatar-canvas"></canvas>
+    <div id="custom-elements-layer" style="position:absolute;inset:0;pointer-events:none;z-index:28;"></div>
+
+    <div id="w-alerts" class="widget-box wrap-neon_frame">
+      <img id="alert-media" class="alert-media" alt="" />
+      <div class="alert-title" id="alert-title">Донат</div>
+      <div class="alert-msg" id="alert-msg"></div>
+    </div>
+
+    <div id="w-goal" class="widget-box wrap-minimal_edge">
+      <div id="goals-container"></div>
+    </div>
+
+    <div id="w-subathon" class="widget-box wrap-glass_bar">
+      <div style="font-size:11px;color:var(--ov-muted);">Subathon Таймер</div>
+      <div class="tabular" id="subathon-clock" style="font-size:24px;font-weight:700;">01:00:00</div>
+    </div>
+
+    <div id="w-chat" class="widget-box wrap-glass_bar"></div>
+
+    <div id="w-alerts_list" class="widget-box wrap-minimal_edge">
+      <div id="alerts-list-title" style="font-size:11px;color:var(--ov-muted);margin-bottom:4px;">Последние донаты</div>
+      <div id="alerts-list-items"></div>
+    </div>
+
+    <div id="w-subtitles" class="widget-box wrap-retro_crt">
+      <span id="subtitle-text"></span>
+    </div>
+
+    <div id="w-counters" class="widget-box wrap-minimal_edge" style="min-width:210px;font-size:12px;">
+      <div id="hype-train-box" style="margin-bottom:6px;"></div>
+      <div id="game-counters-box" style="display:flex;gap:12px;font-weight:700;"></div>
+    </div>
+
+    <div id="w-pngtuber" class="widget-box wrap-none" style="width:128px;text-align:center;">
+      <div id="pngtuber-sprite"></div>
+    </div>
+
+    <div id="w-media_share" class="widget-box wrap-neon_frame" style="width:320px;display:none;">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#10B981;margin-bottom:4px;">
+        <span id="ms-kind">🎬 MEDIA SHARE</span>
+        <span class="tabular" id="ms-timer">0с</span>
+      </div>
+      <div id="ms-title" style="font-size:13px;font-weight:700;margin-bottom:2px;"></div>
+      <div id="ms-donor" style="font-size:11px;color:var(--ov-muted);margin-bottom:6px;"></div>
+      <div class="goal-bar-bg"><div class="goal-bar-fill" id="ms-bar" style="background:#10B981;width:0%;"></div></div>
+    </div>
+
+    <div id="w-prediction" class="widget-box wrap-glass_bar" style="width:300px;font-size:12px;">
+      <div id="pred-box"></div>
+    </div>
+
+    <div id="w-ticker" class="widget-box wrap-glass_bar" style="left:0;right:0;width:100%;font-size:13px;display:flex;align-items:center;gap:14px;">
+      <span id="ticker-countdown" class="tabular" style="display:none;background:#F59E0B;color:#090A0F;padding:2px 8px;border-radius:6px;font-weight:700;"></span>
+      <span id="ticker-text" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+    </div>
+  </div>
+
+  <script>
+    // Автономный клиент OBS-оверлея: WebSocket, очередь алертов, Web Audio синтез,
+    // физика Stream Avatars («Чоки из чата») и изолированная песочница Plugin SDK.
+    const root = document.getElementById('overlay-root');
+    const pluginCanvas = document.getElementById('plugin-canvas');
+    const pCtx = pluginCanvas.getContext('2d');
+    const avatarCanvas = document.getElementById('avatar-canvas');
+    const aCtx = avatarCanvas.getContext('2d');
+
+    let appState = null;
+    const alertQueue = [];
+    let alertBusy = false;
+    const pluginStates = {};
+    const sharedParticles = [];
+    const avatars = new Map();
+    let audioCtx = null;
+
+    function resizeCanvases() {
+      pluginCanvas.width = window.innerWidth;
+      pluginCanvas.height = window.innerHeight;
+      avatarCanvas.width = window.innerWidth;
+      avatarCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function renderTextWithEmotes(text) {
+      const emotes = (appState && appState.emotes) || [];
+      const map = new Map(emotes.map(e => [e.code, e.url]));
+      return String(text || '').split(/(\s+)/).map(tok => {
+        const url = map.get(tok);
+        if (url) {
+          return `<img src="${escapeHtml(url)}" alt="${escapeHtml(tok)}" style="height:20px;vertical-align:middle;display:inline-block;margin:0 2px;" />`;
+        }
+        return escapeHtml(tok);
+      }).join('');
+    }
+
+    function renderCountersAndPngTuber() {
+      if (!appState) return;
+      const ht = appState.hype_train || { active: true, level: 1, progress: 0 };
+      const gc = appState.game_counters || { deaths_label: 'Смерти', deaths: 0, wins: 0, losses: 0 };
+      const htBox = document.getElementById('hype-train-box');
+      if (ht.active) {
+        htBox.innerHTML = `<div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#F59E0B;">
+            <span>🚂 Hype Train Ур.${ht.level}</span><span class="tabular">${ht.progress}%</span>
+          </div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:${ht.progress}%;background:#F59E0B;"></div></div>`;
+      } else {
+        htBox.innerHTML = '';
+      }
+      document.getElementById('game-counters-box').innerHTML =
+        `<span>💀 ${escapeHtml(gc.deaths_label || 'Смерти')}: <strong class="tabular">${gc.deaths || 0}</strong></span>` +
+        `<span>🏆 W/L: <strong class="tabular">${gc.wins || 0}/${gc.losses || 0}</strong></span>`;
+
+      const pt = appState.pngtuber || { enabled: true, name: 'Кибер-Лис', talking: false, emotion: 'idle' };
+      const pWrap = document.getElementById('w-pngtuber');
+      const pSprite = document.getElementById('pngtuber-sprite');
+      if (!pt.enabled) {
+        pWrap.style.display = 'none';
+        return;
+      }
+      const customUrl = pt.talking ? (pt.talk_url || pt.idle_url) : (pt.emotion === 'happy' ? (pt.happy_url || pt.idle_url) : pt.idle_url);
+      const bounce = pt.talking || pt.emotion === 'happy' ? 'transform:translateY(-6px) scale(1.04);' : '';
+      if (customUrl) {
+        pSprite.innerHTML = `<img src="${escapeHtml(customUrl)}" alt="" style="width:110px;height:110px;object-fit:contain;transition:transform .12s;${bounce}" />
+          <div style="font-size:11px;font-weight:700;margin-top:2px;text-shadow:0 1px 4px #000;">${escapeHtml(pt.name)}</div>`;
+      } else {
+        const mouthH = pt.talking ? 10 : (pt.emotion === 'happy' ? 7 : 2);
+        const earColor = pt.emotion === 'happy' ? '#F59E0B' : '#38BDF8';
+        pSprite.innerHTML = `<div style="transition:transform .12s;${bounce}">
+          <svg width="96" height="96" viewBox="0 0 96 96">
+            <polygon points="16,38 28,10 42,34" fill="${earColor}" />
+            <polygon points="80,38 68,10 54,34" fill="${earColor}" />
+            <circle cx="48" cy="54" r="30" fill="#1E293B" stroke="${earColor}" stroke-width="3" />
+            <circle cx="37" cy="48" r="4.5" fill="#38BDF8" />
+            <circle cx="59" cy="48" r="4.5" fill="#38BDF8" />
+            <rect x="40" y="62" width="16" height="${mouthH}" rx="4" fill="#F43F5E" />
+          </svg>
+          <div style="font-size:11px;font-weight:700;text-shadow:0 1px 4px #000;">${escapeHtml(pt.name)}</div>
+        </div>`;
+      }
+    }
+
+    function getAlertsMixerGain() {
+      const m = appState && appState.audio_mixer;
+      if (!m) return 1;
+      if (m.master_muted || m.alerts_muted) return 0;
+      return Math.max(0, Math.min(1, (m.master_volume / 100) * (m.alerts_volume / 100)));
+    }
+
+    // Безопасный Web Audio синтезатор звуков саундборда (работает 100% офлайн)
+    function playSynthSound(freq, pattern, volume) {
+      try {
+        const effectiveVol = volume * getAlertsMixerGain();
+        if (effectiveVol <= 0.001) return;
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const notes = pattern === 'fanfare' ? [freq, freq * 1.25, freq * 1.5, freq * 2]
+                    : pattern === 'arpeggio' ? [freq, freq * 1.5]
+                    : pattern === 'boom' ? [freq, freq * 0.5] : [freq];
+        notes.forEach((f, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = pattern === 'boom' ? 'sawtooth' : 'triangle';
+          osc.frequency.setValueAtTime(f, now + idx * 0.08);
+          gain.gain.setValueAtTime(Math.max(0.01, Math.min(1, effectiveVol * 0.25)), now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.28);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.3);
+        });
+      } catch (_) {}
+    }
+
+    // Применяет тему оверлея к CSS-переменным
+    function applyTheme(themes, activeId) {
+      const t = (themes || []).find(x => x.id === activeId);
+      if (!t) return;
+      const r = document.documentElement.style;
+      r.setProperty('--ov-bg', t.bg_surface);
+      r.setProperty('--ov-border', t.border_color);
+      r.setProperty('--ov-text', t.text_primary);
+      r.setProperty('--ov-muted', t.text_muted);
+      r.setProperty('--ov-accent', t.accent_color);
+      r.setProperty('--ov-radius', (t.border_radius_px || 12) + 'px');
+      r.setProperty('--ov-opacity', t.overlay_opacity ?? 0.92);
+    }
+
+    // Применяет координаты, масштаб и обёртку виджетов
+    function applyLayouts(layouts) {
+      (layouts || []).forEach(w => {
+        const el = document.getElementById('w-' + w.widget_id);
+        if (!el) return;
+        el.style.left = w.x_pct + '%';
+        el.style.top = w.y_pct + '%';
+        el.style.zIndex = w.z_index;
+        el.style.display = w.visible ? '' : 'none';
+        el.className = 'widget-box wrap-' + (w.wrapper_preset || 'none');
+        if (w.widget_id === 'alerts' && alertBusy) el.classList.add('visible');
+        if (w.widget_id === 'subtitles' && el.dataset.hasSub === '1') el.classList.add('visible');
+      });
+    }
+
+    function formatTpl(tpl, ev) {
+      return String(tpl || '{user} · {amount} {currency}')
+        .replace(/\{user\}/g, ev.username || '')
+        .replace(/\{amount\}/g, String(Math.round(ev.amount || 0)))
+        .replace(/\{currency\}/g, ev.currency || '₽')
+        .replace(/\{message\}/g, ev.message || '')
+        .replace(/\{source\}/g, ev.source || '');
+    }
+
+    function updateEngagement(goal, subathon, goals) {
+      const list = (goals && goals.length ? goals : (goal ? [goal] : [])).filter(g => g.visible !== false);
+      const box = document.getElementById('goals-container');
+      box.innerHTML = list.map(g => {
+        const pct = Math.min(100, Math.round((g.current / Math.max(1, g.target)) * 100));
+        return `<div style="margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;">
+            <span>${escapeHtml(g.title)}</span>
+            <span class="tabular">${Math.round(g.current)} / ${Math.round(g.target)} ${escapeHtml(g.unit)}</span>
+          </div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:${pct}%;background:${escapeHtml(g.color || 'var(--ov-accent)')};"></div></div>
+        </div>`;
+      }).join('');
+      if (subathon) {
+        const s = subathon.remaining_seconds || 0;
+        const h = String(Math.floor(s / 3600)).padStart(2, '0');
+        const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+        const sec = String(s % 60).padStart(2, '0');
+        document.getElementById('subathon-clock').textContent = `${h}:${m}:${sec}`;
+      }
+    }
+
+    function renderChat(history) {
+      const box = document.getElementById('w-chat');
+      box.innerHTML = (history || []).slice(-8).map(m => {
+        const tr = m.translated_text ? ` <span style="opacity:.75;font-size:11px;color:#38BDF8;">[${escapeHtml(m.translated_text)}]</span>` : '';
+        return `<div class="chat-line"><span class="chat-plat">[${escapeHtml(m.platform)}]</span><strong style="color:${escapeHtml(m.color)}">${escapeHtml(m.username)}:</strong> ${renderTextWithEmotes(m.text)}${tr}</div>`;
+      }).join('');
+    }
+
+    function renderAlertsList(events, feedCfg) {
+      const cfg = feedCfg || { title: 'Последние донаты', max_items: 5, min_amount: 0, show_source: false, row_template: '{user} · {amount} {currency}' };
+      document.getElementById('alerts-list-title').textContent = cfg.title || 'Последние донаты';
+      const filtered = (events || []).filter(e => (e.amount || 0) >= (cfg.min_amount || 0));
+      const items = filtered.slice(-(cfg.max_items || 5)).reverse();
+      const box = document.getElementById('alerts-list-items');
+      box.innerHTML = items.map(e => {
+        const src = cfg.show_source ? `<span style="opacity:.65;font-size:10px;margin-right:4px;">[${escapeHtml(e.source)}]</span>` : '';
+        return `<div class="alert-list-row"><span>${src}${escapeHtml(e.username)}</span><span class="tabular">${Math.round(e.amount)} ${escapeHtml(e.currency)}</span></div>`;
+      }).join('');
+    }
+
+    function renderCustomElements(elements) {
+      const layer = document.getElementById('custom-elements-layer');
+      layer.innerHTML = '';
+      (elements || []).filter(el => el.visible).forEach(el => {
+        const node = document.createElement('div');
+        node.style.position = 'absolute';
+        node.style.left = el.x_pct + '%';
+        node.style.top = el.y_pct + '%';
+        node.style.width = (el.width_px || 180) + 'px';
+        node.style.zIndex = el.z_index || 28;
+        if (el.css) node.style.cssText += ';' + el.css;
+        if (el.image_url) {
+          const img = document.createElement('img');
+          img.src = el.image_url;
+          img.style.width = '100%';
+          img.style.display = 'block';
+          img.style.borderRadius = '8px';
+          node.appendChild(img);
+        }
+        if (el.html) {
+          const inner = document.createElement('div');
+          inner.innerHTML = el.html;
+          node.appendChild(inner);
+        }
+        layer.appendChild(node);
+      });
+    }
+
+    function resolveVariation(ev) {
+      const vars = (appState && appState.alert_variations) || [];
+      if (ev.variation_id) {
+        const byId = vars.find(v => v.id === ev.variation_id);
+        if (byId) return byId;
+      }
+      return vars.find(v => v.enabled) || null;
+    }
+
+    function enqueueAlert(ev) {
+      alertQueue.push(ev);
+      if (!alertBusy) nextAlert();
+    }
+
+    function nextAlert() {
+      const box = document.getElementById('w-alerts');
+      if (alertQueue.length === 0) {
+        alertBusy = false;
+        box.classList.remove('visible', 'anim-pop', 'anim-slide_up', 'anim-zoom', 'anim-glitch');
+        return;
+      }
+      alertBusy = true;
+      const ev = alertQueue.shift();
+      const v = resolveVariation(ev);
+      const media = document.getElementById('alert-media');
+      const titleEl = document.getElementById('alert-title');
+      const msgEl = document.getElementById('alert-msg');
+
+      if (v && v.image_url) {
+        media.src = v.image_url;
+        media.style.display = 'block';
+      } else {
+        media.style.display = 'none';
+      }
+      titleEl.textContent = v ? formatTpl(v.title_template, ev) : `${ev.username} · ${Math.round(ev.amount)} ${ev.currency}`;
+      msgEl.textContent = ev.message || 'Спасибо за поддержку!';
+      if (v) {
+        box.style.background = v.bg_color || '';
+        box.style.borderColor = v.accent_color || '';
+        titleEl.style.color = v.accent_color || '';
+        msgEl.style.color = v.text_color || '';
+      }
+
+      box.classList.remove('anim-pop', 'anim-slide_up', 'anim-zoom', 'anim-glitch');
+      void box.offsetWidth;
+      box.classList.add('visible', 'anim-' + (v?.animation || 'pop'));
+
+      const alertGain = getAlertsMixerGain();
+      if (alertGain > 0.001) {
+        if (v && v.sound_url) {
+          try {
+            const a = new Audio(v.sound_url);
+            a.volume = alertGain;
+            a.play().catch(() => playSynthSound(523.25, 'fanfare', 0.6));
+          } catch (_) {
+            playSynthSound(523.25, 'fanfare', 0.6);
+          }
+        } else {
+          playSynthSound(523.25, 'fanfare', 0.6);
+        }
+      }
+      setTimeout(nextAlert, (v && v.duration_ms) || 4500);
+    }
+
+    // Спавн / обновление «чока» в движке Stream Avatars
+    function ensureAvatar(username, color) {
+      if (!avatars.has(username)) {
+        avatars.set(username, {
+          username,
+          color: color || '#38BDF8',
+          x: 80 + Math.random() * Math.max(200, avatarCanvas.width - 160),
+          y: avatarCanvas.height - 48,
+          vx: (Math.random() > 0.5 ? 1 : -1) * 1.4,
+          vy: 0,
+          bubble: '',
+          bubbleUntil: 0,
+          danceUntil: 0
+        });
+      }
+      return avatars.get(username);
+    }
+
+    // SDK для кастомных плагинов
+    const sdk = {
+      spawnParticles(x, y, count, color) {
+        for (let i = 0; i < (count || 20); i++) {
+          const a = Math.random() * Math.PI * 2;
+          const sp = 1.5 + Math.random() * 4;
+          sharedParticles.push({
+            x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2,
+            life: 1.0, color: color || '#FBBF24', r: 2 + Math.random() * 3
+          });
+        }
+      }
+    };
+
+    function dispatchPluginEvent(hookName, payload) {
+      if (!appState) return;
+      (appState.plugins || []).forEach(p => {
+        if (!p.enabled) return;
+        if (hookName !== 'on_tick' && !(p.hooks || []).includes(hookName)) return;
+        try {
+          const st = pluginStates[p.id] || (pluginStates[p.id] = {});
+          const fn = new Function('ctx', 'width', 'height', 'cfg', 'state', 'event', 'sdk', p.script_js);
+          fn(pCtx, pluginCanvas.width, pluginCanvas.height, p.config || {}, st, { type: hookName, payload }, sdk);
+        } catch (err) {
+          console.error('[Plugin Error]', p.id, err);
+        }
+      });
+    }
+
+    // Главный цикл 60 FPS: плагины + частицы + аватары Stream Avatars
+    function frameLoop() {
+      pCtx.clearRect(0, 0, pluginCanvas.width, pluginCanvas.height);
+      aCtx.clearRect(0, 0, avatarCanvas.width, avatarCanvas.height);
+
+      dispatchPluginEvent('on_tick', null);
+
+      for (let i = sharedParticles.length - 1; i >= 0; i--) {
+        const pt = sharedParticles[i];
+        pt.x += pt.vx; pt.y += pt.vy; pt.vy += 0.12; pt.life -= 0.02;
+        if (pt.life <= 0) { sharedParticles.splice(i, 1); continue; }
+        pCtx.save();
+        pCtx.globalAlpha = pt.life;
+        pCtx.fillStyle = pt.color;
+        pCtx.beginPath();
+        pCtx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2);
+        pCtx.fill();
+        pCtx.restore();
+      }
+
+      const now = Date.now();
+      const floorY = avatarCanvas.height - 26;
+      avatars.forEach(av => {
+        av.x += av.vx;
+        av.vy += 0.45;
+        av.y += av.vy;
+        if (av.y >= floorY) { av.y = floorY; av.vy = 0; }
+        if (av.x < 30 || av.x > avatarCanvas.width - 30) av.vx *= -1;
+        const hop = av.danceUntil > now ? Math.abs(Math.sin(now * 0.015)) * 12 : 0;
+
+        aCtx.save();
+        aCtx.fillStyle = av.color;
+        aCtx.beginPath();
+        aCtx.arc(av.x, av.y - 16 - hop, 14, 0, Math.PI * 2);
+        aCtx.fill();
+        aCtx.fillStyle = '#0F172A';
+        aCtx.fillRect(av.x - 5, av.y - 20 - hop, 3, 3);
+        aCtx.fillRect(av.x + 2, av.y - 20 - hop, 3, 3);
+
+        aCtx.font = '600 11px DM Sans, sans-serif';
+        aCtx.textAlign = 'center';
+        aCtx.fillStyle = '#F8FAFC';
+        aCtx.fillText(av.username, av.x, av.y + 12);
+
+        if (av.bubble && av.bubbleUntil > now) {
+          aCtx.fillStyle = 'rgba(15,23,42,0.88)';
+          aCtx.fillRect(av.x - 65, av.y - 54 - hop, 130, 22);
+          aCtx.fillStyle = '#F8FAFC';
+          aCtx.fillText(av.bubble.slice(0, 22), av.x, av.y - 39 - hop);
+        }
+        aCtx.restore();
+      });
+
+      requestAnimationFrame(frameLoop);
+    }
+    requestAnimationFrame(frameLoop);
+
+    function renderSeDaWidgets() {
+      if (!appState) return;
+      // 1. Media Share
+      const msBox = document.getElementById('w-media_share');
+      const activeMedia = (appState.media_queue || []).find(m => m.status === 'playing' || m.status === 'paused');
+      if (msBox) {
+        if (activeMedia) {
+          const m = appState.audio_mixer;
+          const mediaMuted = m ? (m.master_muted || m.media_muted) : false;
+          const mediaVol = m ? Math.round((m.master_volume / 100) * m.media_volume) : 100;
+          msBox.style.display = 'block';
+          document.getElementById('ms-kind').textContent = '🎬 MEDIA SHARE (' + String(activeMedia.media_kind || 'youtube').toUpperCase() + ') · ' + (mediaMuted ? 'MUTE' : mediaVol + '%');
+          document.getElementById('ms-timer').textContent = activeMedia.remaining_sec + 'с';
+          document.getElementById('ms-title').textContent = activeMedia.title || 'Медиа-запрос';
+          document.getElementById('ms-donor').textContent = 'Отправил: ' + activeMedia.donor + ' (' + Math.round(activeMedia.amount_rub || 0) + ' ₽)';
+          const pct = Math.max(0, Math.min(100, Math.round(((activeMedia.duration_sec - activeMedia.remaining_sec) / Math.max(1, activeMedia.duration_sec)) * 100)));
+          document.getElementById('ms-bar').style.width = pct + '%';
+        } else {
+          msBox.style.display = 'none';
+        }
+      }
+
+      // 2. Prediction (!bet)
+      const predWrap = document.getElementById('w-prediction');
+      const predBox = document.getElementById('pred-box');
+      if (predWrap && predBox) {
+        const pred = appState.prediction;
+        if (pred && pred.active) {
+          predWrap.style.display = 'block';
+          const rows = (pred.outcomes || []).map(o =>
+            `<div style="display:flex;justify-content:space-between;margin-top:3px;"><span>#${escapeHtml(o.id)} ${escapeHtml(o.label)}</span><strong class="tabular" style="color:#FBBF24;">${o.pool}</strong></div>`
+          ).join('');
+          predBox.innerHTML = `<div style="font-size:10px;font-weight:700;color:#A78BFA;margin-bottom:2px;">🎲 ПАРИ (!bet 1 / 2) · ${pred.locked ? 'ЗАКРЫТО' : 'ОТКРЫТО'}</div><div style="font-weight:700;">${escapeHtml(pred.title)}</div>` + rows;
+        } else {
+          predWrap.style.display = 'none';
+        }
+      }
+
+      // 3. Ticker & Countdown
+      const tkWrap = document.getElementById('w-ticker');
+      if (tkWrap && appState.ticker) {
+        tkWrap.style.display = appState.ticker.enabled ? 'flex' : 'none';
+        const cdEl = document.getElementById('ticker-countdown');
+        if (appState.ticker.countdown_active) {
+          cdEl.style.display = 'inline-block';
+          const s = appState.ticker.countdown_remaining_sec || 0;
+          const m = String(Math.floor(s / 60)).padStart(2, '0');
+          const sec = String(s % 60).padStart(2, '0');
+          cdEl.textContent = `⏱ ${appState.ticker.countdown_label || 'Таймер'}: ${m}:${sec}`;
+        } else {
+          cdEl.style.display = 'none';
+        }
+        document.getElementById('ticker-text').textContent = appState.ticker.custom_text || '';
+      }
+    }
+
+    // WebSocket с авто-переподключением
+    function connectWs() {
+      const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const ws = new WebSocket(`${proto}//${location.host}/ws`);
+      ws.onmessage = e => {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'sync_state') {
+          appState = msg.payload;
+          applyTheme(appState.themes, appState.active_overlay_theme);
+          applyLayouts(appState.layouts);
+          updateEngagement(appState.goal, appState.subathon, appState.goals);
+          renderChat(appState.chat_history);
+          renderAlertsList(appState.recent_events, appState.feed_config);
+          renderCustomElements(appState.custom_elements);
+          renderCountersAndPngTuber();
+          renderSeDaWidgets();
+          Object.values(appState.viewers || {}).forEach(v => ensureAvatar(v.username, v.avatar_color));
+        } else if (msg.type === 'new_event') {
+          if (appState) {
+            appState.recent_events.push(msg.payload);
+            renderAlertsList(appState.recent_events, appState.feed_config);
+          }
+          enqueueAlert(msg.payload);
+          dispatchPluginEvent('on_donation', msg.payload);
+        } else if (msg.type === 'customization_updated' || msg.type === 'bot_and_auth_updated') {
+          if (appState) {
+            Object.assign(appState, msg.payload);
+            updateEngagement(appState.goal, appState.subathon, appState.goals);
+            renderAlertsList(appState.recent_events, appState.feed_config);
+            renderCustomElements(appState.custom_elements);
+            renderChat(appState.chat_history);
+          }
+        } else if (msg.type === 'counters_updated') {
+          if (appState) {
+            Object.assign(appState, msg.payload);
+            renderCountersAndPngTuber();
+          }
+        } else if (msg.type === 'se_da_updated') {
+          if (appState) {
+            Object.assign(appState, msg.payload);
+            renderSeDaWidgets();
+          }
+        } else if (msg.type === 'mvp_updated') {
+          if (appState) {
+            Object.assign(appState, msg.payload);
+            renderSeDaWidgets();
+          }
+        } else if (msg.type === 'chat_message') {
+          if (appState) {
+            appState.chat_history.push(msg.payload);
+            renderChat(appState.chat_history);
+          }
+          const av = ensureAvatar(msg.payload.username, msg.payload.color);
+          av.bubble = msg.payload.text;
+          av.bubbleUntil = Date.now() + 4500;
+          dispatchPluginEvent('on_chat', msg.payload);
+        } else if (msg.type === 'subtitle') {
+          const el = document.getElementById('w-subtitles');
+          document.getElementById('subtitle-text').textContent = msg.payload.text;
+          el.dataset.hasSub = '1';
+          el.classList.add('visible');
+          clearTimeout(el._hideTimer);
+          el._hideTimer = setTimeout(() => { el.classList.remove('visible'); el.dataset.hasSub = '0'; }, 5500);
+        } else if (msg.type === 'theme_changed') {
+          applyTheme(msg.payload.themes, msg.payload.overlay_theme);
+        } else if (msg.type === 'layout_updated') {
+          applyLayouts(msg.payload);
+        } else if (msg.type === 'plugin_updated') {
+          if (appState) {
+            const idx = appState.plugins.findIndex(x => x.id === msg.payload.id);
+            if (idx >= 0) appState.plugins[idx] = msg.payload;
+            else appState.plugins.push(msg.payload);
+          }
+        } else if (msg.type === 'plugin_triggered') {
+          dispatchPluginEvent('on_trigger', msg.payload.data);
+        } else if (msg.type === 'play_sound') {
+          playSynthSound(msg.payload.freq_hz, msg.payload.pattern, msg.payload.volume);
+        } else if (msg.type === 'avatar_action') {
+          const { username, action } = msg.payload;
+          avatars.forEach((av, key) => {
+            if (username === '*' || key === username) {
+              if (action === 'jump') av.vy = -10;
+              if (action === 'dance') av.danceUntil = Date.now() + 4000;
+              if (action === 'bomb') sdk.spawnParticles(av.x, av.y - 16, 22, '#EF4444');
+            }
+          });
+        } else if (msg.type === 'engagement_updated') {
+          updateEngagement(msg.payload.goal, msg.payload.subathon, appState?.goals);
+        }
+      };
+      ws.onclose = () => setTimeout(connectWs, 2000);
+    }
+    connectWs();
+  </script>
+</body>
+</html>

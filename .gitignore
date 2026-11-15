@@ -1,0 +1,32 @@
+# Зависимости и артефакты Node.js / Vite
+node_modules/
+build/
+dist/
+dist_release/
+static/bundle/
+coverage/
+*.tsbuildinfo
+
+# Артефакты сборки Rust / Cargo
+target/
+**/*.rs.bk
+
+# Локальные данные профиля, загруженные ассеты и веса моделей (Whisper / LLM)
+pulsecast_profile.json
+pulsecast_profile.json.tmp
+*.tmp
+models/
+assets/*
+!assets/.gitkeep
+
+# Переменные окружения и логи
+.env*
+!.env.example
+*.log
+
+# Системные файлы ОС и IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

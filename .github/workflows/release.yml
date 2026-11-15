@@ -1,0 +1,332 @@
+name: Auto Build & GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+    branches:
+      - main
+      - master
+    paths:
+      - 'Cargo.toml'
+      - 'package.json'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Версия релиза без префикса v (пусто = взять из Cargo.toml)'
+        required: false
+        default: ''
+      prerelease:
+        description: 'Пометить релиз как Pre-release'
+        type: choice
+        options:
+          - auto
+          - 'true'
+          - 'false'
+        default: auto
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  prepare:
+    name: Resolve Release Version
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.resolve.outputs.should_release }}
+      version: ${{ steps.resolve.outputs.version }}
+      tag: ${{ steps.resolve.outputs.tag }}
+      prerelease: ${{ steps.resolve.outputs.prerelease }}
+      create_tag: ${{ steps.resolve.outputs.create_tag }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Determine release metadata
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --tags --force
+
+          CARGO_VER=$(grep -E '^version\s*=' Cargo.toml | head -n1 | sed -E 's/.*"([^"]+)".*/\1/')
+          EVENT_NAME="${{ github.event_name }}"
+          REF_TYPE="${{ github.ref_type }}"
+          REF_NAME="${{ github.ref_name }}"
+          INPUT_VER="${{ github.event.inputs.version || '' }}"
+          INPUT_PRE="${{ github.event.inputs.prerelease || 'auto' }}"
+
+          SHOULD_RELEASE="false"
+          CREATE_TAG="false"
+          VERSION="$CARGO_VER"
+
+          if [ "$REF_TYPE" = "tag" ]; then
+            TAG="$REF_NAME"
+            VERSION="${TAG#v}"
+            SHOULD_RELEASE="true"
+            CREATE_TAG="false"
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ -n "$INPUT_VER" ]; then
+              VERSION="${INPUT_VER#v}"
+            fi
+            TAG="v${VERSION}"
+            SHOULD_RELEASE="true"
+            if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+              CREATE_TAG="false"
+            else
+              CREATE_TAG="true"
+            fi
+          else
+            TAG="v${VERSION}"
+            if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+              echo "Tag ${TAG} already exists; skipping automatic release."
+              SHOULD_RELEASE="false"
+            else
+              echo "New version ${TAG} detected in Cargo.toml; starting automatic release."
+              SHOULD_RELEASE="true"
+              CREATE_TAG="true"
+            fi
+          fi
+
+          if [ "$INPUT_PRE" = "true" ]; then
+            PRERELEASE="true"
+          elif [ "$INPUT_PRE" = "false" ]; then
+            PRERELEASE="false"
+          else
+            if [[ "$VERSION" == 0.* ]] || [[ "$VERSION" == *-* ]]; then
+              PRERELEASE="true"
+            else
+              PRERELEASE="false"
+            fi
+          fi
+
+          echo "should_release=${SHOULD_RELEASE}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=${PRERELEASE}" >> "$GITHUB_OUTPUT"
+          echo "create_tag=${CREATE_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Resolved -> should_release=${SHOULD_RELEASE}, tag=${TAG}, prerelease=${PRERELEASE}, create_tag=${CREATE_TAG}"
+
+  build-web:
+    name: Build Web & Node.js Bundle
+    needs: prepare
+    if: needs.prepare.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install & Build Vite bundle
+        run: |
+          npm ci
+          npm run lint
+          npm run build
+
+      - name: Package Web Release archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${{ needs.prepare.outputs.tag }}"
+          mkdir -p web_pkg/src web_pkg/static web_out
+          cp -r dist web_pkg/dist
+          cp server.ts web_pkg/server.ts
+          cp -r src/types web_pkg/src/types
+          cp static/overlay.html web_pkg/static/overlay.html
+          cp package.json .env.example README.md LICENSE CHANGELOG.md web_pkg/
+          if [ -f package-lock.json ]; then cp package-lock.json web_pkg/; fi
+
+          tar -czf "web_out/pulsecast-local-${TAG}-web-nodejs.tar.gz" -C web_pkg .
+          (cd web_pkg && zip -qr "../web_out/pulsecast-local-${TAG}-web-nodejs.zip" .)
+
+      - name: Upload Vite dist for Rust bundles
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-dist
+          path: dist/
+
+      - name: Upload Web release archives
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-web
+          path: web_out/*
+
+  build-rust:
+    name: Build Rust Release (${{ matrix.target_label }})
+    needs: [ prepare, build-web ]
+    if: needs.prepare.outputs.should_release == 'true'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target_label: linux-x86_64
+            bin_ext: ''
+            archive_type: tar
+          - os: windows-latest
+            target_label: windows-x86_64
+            bin_ext: '.exe'
+            archive_type: zip
+          - os: macos-latest
+            target_label: macos-arm64
+            bin_ext: ''
+            archive_type: tar
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux native dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            cmake \
+            pkg-config \
+            clang \
+            libclang-dev \
+            libasound2-dev
+
+      - name: Install macOS native dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install cmake llvm
+          echo "LIBCLANG_PATH=$(brew --prefix llvm)/lib" >> "$GITHUB_ENV"
+
+      - name: Install Windows native dependencies
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install llvm cmake -y --no-progress
+          $llvmBin = "C:\Program Files\LLVM\bin"
+          echo "LIBCLANG_PATH=$llvmBin" >> $env:GITHUB_ENV
+          echo "$llvmBin" >> $env:GITHUB_PATH
+
+      - name: Run Rust unit tests
+        run: cargo test
+
+      - name: Build Rust release binary
+        run: cargo build --release
+
+      - name: Download built Vite frontend
+        uses: actions/download-artifact@v8
+        with:
+          name: web-dist
+          path: web_dist
+
+      - name: Package Unix release archive
+        if: matrix.archive_type == 'tar'
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${{ needs.prepare.outputs.tag }}"
+          ARCHIVE="pulsecast-local-${TAG}-${{ matrix.target_label }}.tar.gz"
+          mkdir -p dist_pack/static dist_pack/assets dist_pack/models dist_out
+          cp "target/release/pulsecast-local${{ matrix.bin_ext }}" "dist_pack/pulsecast-local${{ matrix.bin_ext }}"
+          chmod +x "dist_pack/pulsecast-local${{ matrix.bin_ext }}"
+          cp -r web_dist/* dist_pack/static/
+          cp static/overlay.html dist_pack/static/overlay.html
+          cp .env.example README.md LICENSE CHANGELOG.md dist_pack/
+          tar -czf "dist_out/${ARCHIVE}" -C dist_pack .
+
+      - name: Package Windows release archive
+        if: matrix.archive_type == 'zip'
+        shell: pwsh
+        run: |
+          $tag = "${{ needs.prepare.outputs.tag }}"
+          $archive = "pulsecast-local-$tag-${{ matrix.target_label }}.zip"
+          New-Item -ItemType Directory -Force -Path dist_pack/static, dist_pack/assets, dist_pack/models, dist_out | Out-Null
+          Copy-Item "target/release/pulsecast-local.exe" "dist_pack/pulsecast-local.exe"
+          Copy-Item -Recurse -Force "web_dist/*" "dist_pack/static/"
+          Copy-Item -Force "static/overlay.html" "dist_pack/static/overlay.html"
+          Copy-Item -Force -Path @(".env.example", "README.md", "LICENSE", "CHANGELOG.md") -Destination "dist_pack/"
+          Compress-Archive -Path "dist_pack/*" -DestinationPath "dist_out/$archive"
+
+      - name: Upload Rust release archive
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ matrix.target_label }}
+          path: dist_out/*
+
+  publish-release:
+    name: Publish GitHub Release
+    needs: [ prepare, build-web, build-rust ]
+    if: needs.prepare.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Download all release archives
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Generate SHA256 checksums
+        shell: bash
+        run: |
+          cd release-assets
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Create git tag when triggered automatically or manually
+        if: needs.prepare.outputs.create_tag == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${{ needs.prepare.outputs.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            git tag -a "${TAG}" -m "Release ${TAG}"
+            git push origin "${TAG}"
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ needs.prepare.outputs.tag }}
+          name: "PulseCast Local ${{ needs.prepare.outputs.tag }} (Early Development)"
+          prerelease: ${{ needs.prepare.outputs.prerelease }}
+          generate_release_notes: true
+          files: release-assets/*
+          body: |
+            > ⚠️ **Ранняя стадия разработки (Pre-Alpha / Early Development)**
+            > Проект активно развивается: возможны ошибки, изменения форматов конфигурации и доработки интерфейсов. Сообщайте о багах в Issues!
+
+            ### Состав релиза `${{ needs.prepare.outputs.tag }}`
+            - `pulsecast-local-*-linux-x86_64.tar.gz` — нативный Rust-бинарник для Linux со встроенным Web UI и `/overlay`
+            - `pulsecast-local-*-windows-x86_64.zip` — нативный Rust-бинарник для Windows со встроенным Web UI и `/overlay`
+            - `pulsecast-local-*-macos-arm64.tar.gz` — нативный Rust-бинарник для macOS (Apple Silicon)
+            - `pulsecast-local-*-web-nodejs.*` — автономная Web/Node.js-сборка (`npm install --omit=dev && NODE_ENV=production npm start`)
+            - `SHA256SUMS.txt` — контрольные суммы всех архивов релиза

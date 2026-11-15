@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseCast Local — Эфирный пульт</title>
+  <style>
+    :root {
+      --bg: #0B0F17;
+      --surface: #111827;
+      --border: #1F2937;
+      --text: #F1F5F9;
+      --muted: #94A3B8;
+      --accent: #2563EB;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      height: 56px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+    .brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
+    .nav { display: flex; gap: 16px; overflow-x: auto; }
+    .nav button {
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 2px;
+      border-bottom: 2px solid transparent;
+    }
+    .nav button.active { color: var(--text); border-bottom-color: var(--accent); }
+    .btn {
+      background: var(--accent); color: #fff; border: none; border-radius: 8px;
+      padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+      white-space: nowrap; min-height: 40px;
+    }
+    .btn-ghost {
+      background: transparent; color: var(--text); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px; font-size: 13px; cursor: pointer; min-height: 40px;
+    }
+    main {
+      flex: 1; min-height: 0; padding: 16px; overflow-y: auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;
+      align-content: start;
+    }
+    .panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .panel h2 { font-size: 15px; font-weight: 600; }
+    .deck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .deck-btn {
+      min-height: 52px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-weight: 600; font-size: 13px;
+      cursor: pointer; padding: 8px; text-align: left;
+    }
+    input, select, textarea {
+      width: 100%; background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; font-size: 13px;
+    }
+    .scroll-box { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+    .meta { font-size: 12px; color: var(--muted); }
+    .tabular { font-variant-numeric: tabular-nums; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">PulseCast Local</div>
+    <div class="nav">
+      <button class="active" onclick="showTab('desk', this)">Пульт и Чат</button>
+      <button onclick="showTab('avatars', this)">Аватары и Игры</button>
+      <button onclick="showTab('plugins', this)">Плагины и Темы</button>
+    </div>
+    <a href="/overlay" target="_blank" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;">OBS Оверлей</a>
+  </header>
+
+  <main id="tab-desk">
+    <section class="panel">
+      <h2>Web Stream Deck</h2>
+      <div class="meta" id="scene-info">Сцена: —</div>
+      <div class="deck-grid" id="deck-grid"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Эмуляция доната (Вебхук)</h2>
+      <input id="don-user" placeholder="Ник зрителя" value="KiraDev" />
+      <input id="don-amt" type="number" placeholder="Сумма" value="500" />
+      <input id="don-msg" placeholder="Сообщение" value="Привет эфиру!" />
+      <button class="btn" onclick="sendDonate()">Отправить донат</button>
+    </section>
+
+    <section class="panel">
+      <h2>Мультичат и команды (!dance, !battleroyale)</h2>
+      <div class="scroll-box" id="chat-box"></div>
+      <div style="display:flex;gap:8px;">
+        <input id="chat-input" placeholder="Написать в чат или !команду..." />
+        <button class="btn" onclick="sendChat()">Отправить</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Локальный ИИ-Агент (Function Calling)</h2>
+      <textarea id="agent-input" rows="2" placeholder="Например: Включи звёздочки, переключи сцену на Gaming Capture и отметь клип"></textarea>
+      <button class="btn" onclick="askAgent()">Выполнить команду</button>
+      <div class="meta" id="agent-reply">Ожидание команды...</div>
+    </section>
+  </main>
+
+  <main id="tab-avatars" style="display:none;">
+    <section class="panel">
+      <h2>Мини-игры Stream Avatars</h2>
+      <div class="deck-grid">
+        <button class="deck-btn" onclick="startGame('battle_royale')">Battle Royale</button>
+        <button class="deck-btn" onclick="startGame('boss_fight')">Boss Fight</button>
+        <button class="deck-btn" onclick="startGame('star_catch')">Ловля звёзд</button>
+        <button class="deck-btn" onclick="startGame('basketball')">Баскетбол</button>
+      </div>
+      <button class="btn-ghost" onclick="avatarDance()">Заставить всех танцевать</button>
+    </section>
+    <section class="panel">
+      <h2>Субтитры Whisper</h2>
+      <div class="meta" id="whisper-diag">—</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn" onclick="toggleWhisper(true)">Включить микрофон</button>
+        <button class="btn-ghost" onclick="toggleWhisper(false)">Остановить</button>
+      </div>
+    </section>
+  </main>
+
+  <main id="tab-plugins" style="display:none;">
+    <section class="panel">
+      <h2>Плагины оверлея</h2>
+      <div id="plugins-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </section>
+    <section class="panel">
+      <h2>Темы оформления</h2>
+      <div id="themes-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </section>
+  </main>
+
+  <script>
+    let state = null;
+    function showTab(id, btn) {
+      ['desk','avatars','plugins'].forEach(t => document.getElementById('tab-' + t).style.display = t === id ? 'grid' : 'none');
+      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    async function post(url, body) {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      return r.json();
+    }
+    function applyDashboardTheme(themes, id) {
+      const t = (themes || []).find(x => x.id === id);
+      if (!t) return;
+      const r = document.documentElement.style;
+      r.setProperty('--bg', t.bg_canvas); r.setProperty('--surface', t.bg_surface);
+      r.setProperty('--border', t.border_color); r.setProperty('--text', t.text_primary);
+      r.setProperty('--muted', t.text_muted); r.setProperty('--accent', t.accent_color);
+    }
+    function renderAll() {
+      if (!state) return;
+      applyDashboardTheme(state.themes, state.active_dashboard_theme);
+      document.getElementById('scene-info').textContent = `Сцена: ${state.obs.active_scene} · OBS: ${state.obs.connected ? 'Подключён' : 'Автономно'}`;
+      document.getElementById('whisper-diag').textContent = state.whisper.diagnostic;
+      document.getElementById('deck-grid').innerHTML = (state.deck_buttons || []).map(b =>
+        `<button class="deck-btn" style="border-color:${b.accent}" onclick="post('/api/deck/trigger',{button_id:'${b.id}'})">${b.label}</button>`
+      ).join('');
+      document.getElementById('chat-box').innerHTML = (state.chat_history || []).slice(-30).map(m =>
+        `<div><strong>${m.username}</strong>: ${m.text}</div>`
+      ).join('');
+      document.getElementById('plugins-list').innerHTML = (state.plugins || []).map(p =>
+        `<div style="display:flex;justify-content:space-between;align-items:center;"><span>${p.name}</span><button class="btn-ghost" onclick="post('/api/plugins/toggle',{plugin_id:'${p.id}',enabled:${!p.enabled}})">${p.enabled ? 'Выключить' : 'Включить'}</button></div>`
+      ).join('');
+      document.getElementById('themes-list').innerHTML = (state.themes || []).map(t =>
+        `<button class="deck-btn" onclick="post('/api/themes/select',{target:'${t.target}',theme_id:'${t.id}'})">${t.name} (${t.target})</button>`
+      ).join('');
+    }
+    function sendDonate() { post('/api/webhooks/donation', { username: document.getElementById('don-user').value, amount: Number(document.getElementById('don-amt').value), message: document.getElementById('don-msg').value }); }
+    function sendChat() { const el = document.getElementById('chat-input'); if (!el.value.trim()) return; post('/api/chat/ingest', { platform: 'local', username: 'Broadcaster', role: 'broadcaster', text: el.value }); el.value = ''; }
+    async function askAgent() { const res = await post('/api/agent', { prompt: document.getElementById('agent-input').value }); document.getElementById('agent-reply').textContent = `${res.reply} [${res.backend_used}]`; }
+    function startGame(kind) { post('/api/minigame', { kind }); }
+    function avatarDance() { post('/api/avatar/action', { username: '*', action: 'dance' }); }
+    function toggleWhisper(enabled) { post('/api/whisper/toggle', { enabled }); }
+
+    function connect() {
+      const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const ws = new WebSocket(`${proto}//${location.host}/ws`);
+      ws.onmessage = async () => {
+        const res = await fetch('/api/state');
+        state = await res.json();
+        renderAll();
+      };
+      ws.onclose = () => setTimeout(connect, 2000);
+    }
+    connect();
+  </script>
+</body>
+</html>

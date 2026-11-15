@@ -1,0 +1,43 @@
+[package]
+name = "pulsecast-local"
+version = "0.1.0"
+edition = "2021"
+description = "Автономная локальная стриминговая платформа на Rust (аналог StreamElements, Stream Avatars и RutonyChat) с OBS-оверлеем, Whisper-субтитрами, плагинами и локальным ИИ-агентом."
+authors = ["PulseCast Contributors"]
+license = "MIT"
+
+[dependencies]
+# Асинхронный рантайм и утилиты потоков
+tokio = { version = "1.54.0", features = ["full"] }
+futures-util = "0.3.34"
+
+# HTTP / WebSocket сервер и middleware для статики/CORS/трассировки
+axum = { version = "0.8.9", features = ["ws", "multipart"] }
+tower-http = { version = "0.7.1", features = ["fs", "cors", "trace"] }
+
+# Сериализация и структуры данных
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+
+# HTTP-клиент для OpenAI-совместимого API llama.cpp (llama-server)
+reqwest = { version = "0.13.5", features = ["json"] }
+
+# Локальные ИИ и распознавание речи (обязательная линковка по умолчанию)
+llama-cpp-2 = "0.1.161"
+whisper-rs = "0.16.0"
+
+# Захват аудио в реальном времени и работа с WAV-файлами
+cpal = "0.18.2"
+hound = "3.5.1"
+
+# Интеграция с OBS Studio через obs-websocket v5
+obws = "0.15.0"
+
+# Логирование, конфигурация, время, UUID, регулярные выражения и ошибки
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "fmt"] }
+dotenvy = "0.15.7"
+uuid = { version = "1.29.2", features = ["v4", "serde"] }
+chrono = { version = "0.4.45", features = ["serde"] }
+regex = "1.13.1"
+thiserror = "2.0.21"
