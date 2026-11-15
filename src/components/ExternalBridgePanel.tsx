@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { BridgeParserRule, StreamEventKind, StreamSnapshot } from '../types/stream.ts';
+import { getServerHttpOrigin } from '../utils/runtime.ts';
 
 interface ExternalBridgePanelProps {
   snapshot: StreamSnapshot;
@@ -160,7 +161,7 @@ export const ExternalBridgePanel: React.FC<ExternalBridgePanelProps> = ({ snapsh
     }
   };
 
-  const ingestUrl = typeof window !== 'undefined' ? `${window.location.origin}/api/bridges/ingest` : 'http://127.0.0.1:8080/api/bridges/ingest';
+  const ingestUrl = `${getServerHttpOrigin()}/api/bridges/ingest`;
   const userscriptCode = `// ==UserScript==
 // @name         PulseCast Alert Bridge (DonationAlerts / Boosty / SE)
 // @match        *://*.donationalerts.com/*

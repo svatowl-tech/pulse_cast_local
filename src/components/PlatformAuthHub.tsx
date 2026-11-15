@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import type { ChatPlatform, EmoteEntry, PlatformConnection, StreamSnapshot } from '../types/stream.ts';
+import type { EmoteEntry, PlatformConnection, StreamSnapshot } from '../types/stream.ts';
+import { getServerHttpOrigin, resolveApiUrl } from '../utils/runtime.ts';
 
 interface PlatformAuthHubProps {
   snapshot: StreamSnapshot;
@@ -78,7 +79,7 @@ export const PlatformAuthHub: React.FC<PlatformAuthHubProps> = ({
         channel: channelInput.trim() || `${provider}_streamer`,
         client_id: clientIdInput.startsWith('••') ? '' : clientIdInput.trim(),
       });
-      const res = await fetch(`/api/auth/url?${qs.toString()}`);
+      const res = await fetch(resolveApiUrl(`/api/auth/url?${qs.toString()}`));
       if (!res.ok) throw new Error('Не удалось получить OAuth URL');
       const { url } = (await res.json()) as { url: string };
       const popup = window.open(url, 'pulsecast_oauth_popup', 'width=620,height=720');
@@ -144,10 +145,7 @@ export const PlatformAuthHub: React.FC<PlatformAuthHubProps> = ({
             Укажите эти Callback URL в кабинете разработчика Twitch / Google / Kick / VK:
           </div>
           <div className="font-mono text-[10px] text-blue-500 select-all break-all">
-            https://ais-dev-2idzlyi7t3igqaz2jodf6m-13199952792.us-east5.run.app/auth/callback
-          </div>
-          <div className="font-mono text-[10px] text-emerald-500 select-all break-all">
-            https://ais-pre-2idzlyi7t3igqaz2jodf6m-13199952792.us-east5.run.app/auth/callback
+            {`${getServerHttpOrigin()}/auth/callback`}
           </div>
         </div>
       )}

@@ -10,6 +10,8 @@ on:
     paths:
       - 'Cargo.toml'
       - 'package.json'
+      - 'src-tauri/tauri.conf.json'
+      - 'src-tauri/Cargo.toml'
   workflow_dispatch:
     inputs:
       version:
@@ -157,7 +159,7 @@ jobs:
           tar -czf "web_out/pulsecast-local-${TAG}-web-nodejs.tar.gz" -C web_pkg .
           (cd web_pkg && zip -qr "../web_out/pulsecast-local-${TAG}-web-nodejs.zip" .)
 
-      - name: Upload Vite dist for Rust bundles
+      - name: Upload Vite dist for Rust & Tauri bundles
         uses: actions/upload-artifact@v7
         with:
           name: web-dist
@@ -169,8 +171,8 @@ jobs:
           name: release-web
           path: web_out/*
 
-  build-rust:
-    name: Build Rust Release (${{ matrix.target_label }})
+  build-desktop-and-headless:
+    name: Build Desktop (Tauri) & Headless (${{ matrix.target_label }})
     needs: [ prepare, build-web ]
     if: needs.prepare.outputs.should_release == 'true'
     runs-on: ${{ matrix.os }}
@@ -178,7 +180,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             target_label: linux-x86_64
             bin_ext: ''
             archive_type: tar
@@ -197,13 +199,18 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Cargo dependencies
         uses: Swatinem/rust-cache@v2
 
-      - name: Install Linux native dependencies
+      - name: Install Linux native & Tauri dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
@@ -213,7 +220,15 @@ jobs:
             pkg-config \
             clang \
             libclang-dev \
-            libasound2-dev
+            libasound2-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libssl-dev \
+            libxdo-dev \
+            patchelf \
+            xdg-utils \
+            file
 
       - name: Install macOS native dependencies
         if: runner.os == 'macOS'
@@ -230,49 +245,77 @@ jobs:
           echo "LIBCLANG_PATH=$llvmBin" >> $env:GITHUB_ENV
           echo "$llvmBin" >> $env:GITHUB_PATH
 
-      - name: Run Rust unit tests
-        run: cargo test --workspace
-
-      - name: Build Rust release binaries
-        run: cargo build --release --workspace
+      - name: Install Node.js dependencies
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Download built Vite frontend
         uses: actions/download-artifact@v8
         with:
           name: web-dist
-          path: web_dist
+          path: dist
 
-      - name: Package Unix release archive
+      - name: Run Rust workspace unit tests
+        run: cargo test --workspace
+
+      - name: Build headless Rust server & worker binaries
+        run: cargo build --release --workspace
+
+      - name: Build Tauri v2 desktop installers
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+        run: npm run tauri build
+
+      - name: Package headless Unix archive & collect Tauri installers
         if: matrix.archive_type == 'tar'
         shell: bash
         run: |
           set -euo pipefail
           TAG="${{ needs.prepare.outputs.tag }}"
-          ARCHIVE="pulsecast-local-${TAG}-${{ matrix.target_label }}.tar.gz"
+          ARCHIVE="pulsecast-local-${TAG}-headless-${{ matrix.target_label }}.tar.gz"
           mkdir -p dist_pack/static dist_pack/assets dist_pack/models dist_out
           cp "target/release/pulsecast-local${{ matrix.bin_ext }}" "dist_pack/pulsecast-local${{ matrix.bin_ext }}"
           cp "target/release/pulsecast-llama-worker${{ matrix.bin_ext }}" "dist_pack/pulsecast-llama-worker${{ matrix.bin_ext }}"
           chmod +x "dist_pack/pulsecast-local${{ matrix.bin_ext }}" "dist_pack/pulsecast-llama-worker${{ matrix.bin_ext }}"
-          cp -r web_dist/* dist_pack/static/
+          cp -r dist/* dist_pack/static/
           cp static/overlay.html dist_pack/static/overlay.html
           cp .env.example README.md LICENSE CHANGELOG.md dist_pack/
           tar -czf "dist_out/${ARCHIVE}" -C dist_pack .
 
-      - name: Package Windows release archive
+          for dir in target/release/bundle src-tauri/target/release/bundle; do
+            if [ -d "$dir" ]; then
+              find "$dir" -maxdepth 3 -type f \( -name "*.AppImage" -o -name "*.deb" -o -name "*.rpm" -o -name "*.dmg" \) -exec cp {} dist_out/ \;
+            fi
+          done
+          ls -lh dist_out/
+
+      - name: Package headless Windows archive & collect Tauri installers
         if: matrix.archive_type == 'zip'
         shell: pwsh
         run: |
           $tag = "${{ needs.prepare.outputs.tag }}"
-          $archive = "pulsecast-local-$tag-${{ matrix.target_label }}.zip"
+          $archive = "pulsecast-local-$tag-headless-${{ matrix.target_label }}.zip"
           New-Item -ItemType Directory -Force -Path dist_pack/static, dist_pack/assets, dist_pack/models, dist_out | Out-Null
           Copy-Item "target/release/pulsecast-local.exe" "dist_pack/pulsecast-local.exe"
           Copy-Item "target/release/pulsecast-llama-worker.exe" "dist_pack/pulsecast-llama-worker.exe"
-          Copy-Item -Recurse -Force "web_dist/*" "dist_pack/static/"
+          Copy-Item -Recurse -Force "dist/*" "dist_pack/static/"
           Copy-Item -Force "static/overlay.html" "dist_pack/static/overlay.html"
           Copy-Item -Force -Path @(".env.example", "README.md", "LICENSE", "CHANGELOG.md") -Destination "dist_pack/"
           Compress-Archive -Path "dist_pack/*" -DestinationPath "dist_out/$archive"
 
-      - name: Upload Rust release archive
+          foreach ($dir in @("target/release/bundle", "src-tauri/target/release/bundle")) {
+            if (Test-Path $dir) {
+              Get-ChildItem -Path $dir -Recurse -Include *.msi,*.exe | Copy-Item -Destination "dist_out/"
+            }
+          }
+          Get-ChildItem dist_out/
+
+      - name: Upload Desktop & Headless artifacts
         uses: actions/upload-artifact@v7
         with:
           name: release-${{ matrix.target_label }}
@@ -280,7 +323,7 @@ jobs:
 
   publish-release:
     name: Publish GitHub Release
-    needs: [ prepare, build-web, build-rust ]
+    needs: [ prepare, build-web, build-desktop-and-headless ]
     if: needs.prepare.outputs.should_release == 'true'
     runs-on: ubuntu-latest
     permissions:
@@ -291,7 +334,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download all release archives
+      - name: Download all release archives & installers
         uses: actions/download-artifact@v8
         with:
           pattern: release-*
@@ -331,8 +374,10 @@ jobs:
             > Проект активно развивается: возможны ошибки, изменения форматов конфигурации и доработки интерфейсов. Сообщайте о багах в Issues!
 
             ### Состав релиза `${{ needs.prepare.outputs.tag }}`
-            - `pulsecast-local-*-linux-x86_64.tar.gz` — нативный Rust-бинарник для Linux со встроенным Web UI и `/overlay`
-            - `pulsecast-local-*-windows-x86_64.zip` — нативный Rust-бинарник для Windows со встроенным Web UI и `/overlay`
-            - `pulsecast-local-*-macos-arm64.tar.gz` — нативный Rust-бинарник для macOS (Apple Silicon)
-            - `pulsecast-local-*-web-nodejs.*` — автономная Web/Node.js-сборка (`npm install --omit=dev && NODE_ENV=production npm start`)
-            - `SHA256SUMS.txt` — контрольные суммы всех архивов релиза
+            - **Десктоп-инсталляторы Tauri v2** (многооконное приложение со встроенным сервером и треем):
+              - Windows: `.msi` и `*-setup.exe`
+              - Linux: `.AppImage` и `.deb`
+              - macOS: `.dmg`
+            - **Headless Rust-сервер** (`pulsecast-local-*-headless-*`) — автономный консольный сервер (`pulsecast-local` + `pulsecast-llama-worker`) со встроенным Web UI и `/overlay`
+            - **Web/Node.js-пакет** (`pulsecast-local-*-web-nodejs.*`) — автономная сборка (`npm install --omit=dev && NODE_ENV=production npm start`)
+            - `SHA256SUMS.txt` — контрольные суммы всех файлов релиза

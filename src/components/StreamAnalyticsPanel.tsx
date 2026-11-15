@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { StreamSnapshot } from '../types/stream.ts';
+import { resolveApiUrl } from '../utils/runtime.ts';
 
 interface StreamAnalyticsPanelProps {
   snapshot: StreamSnapshot;
@@ -51,7 +52,7 @@ export const StreamAnalyticsPanel: React.FC<StreamAnalyticsPanelProps> = ({ snap
           </p>
         </div>
         <a
-          href="/api/analytics/export.csv"
+          href={resolveApiUrl('/api/analytics/export.csv')}
           download="pulsecast_analytics.csv"
           className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-xs font-semibold whitespace-nowrap transition-colors"
         >

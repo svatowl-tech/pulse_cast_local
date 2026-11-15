@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { StreamSnapshot } from '../types/stream.ts';
+import { getServerHttpOrigin, resolveApiUrl } from '../utils/runtime.ts';
 
 interface ObsWizardAndProfilePanelProps {
   snapshot: StreamSnapshot;
@@ -19,7 +20,7 @@ export const ObsWizardAndProfilePanel: React.FC<ObsWizardAndProfilePanelProps> =
   const [profileStatus, setProfileStatus] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://127.0.0.1:3000';
+  const origin = getServerHttpOrigin();
 
   const copyValue = async (key: string, value: string) => {
     try {
@@ -61,7 +62,7 @@ export const ObsWizardAndProfilePanel: React.FC<ObsWizardAndProfilePanelProps> =
   };
 
   const handleExportProfile = async () => {
-    const res = await fetch('/api/profile/export');
+    const res = await fetch(resolveApiUrl('/api/profile/export'));
     const data = await res.json();
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);

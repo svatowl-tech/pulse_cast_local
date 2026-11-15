@@ -42,8 +42,15 @@ jobs:
       - name: Production Vite build
         run: npm run build
 
+      - name: Upload Vite dist for Tauri check
+        uses: actions/upload-artifact@v7
+        with:
+          name: ci-web-dist
+          path: dist/
+
   rust-check:
-    name: Rust Check & Test (${{ matrix.os }})
+    name: Rust & Tauri Check (${{ matrix.os }})
+    needs: web-check
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -56,13 +63,19 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Download Vite dist for Tauri frontendDist
+        uses: actions/download-artifact@v8
+        with:
+          name: ci-web-dist
+          path: dist
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Cargo registry & targets
         uses: Swatinem/rust-cache@v2
 
-      - name: Install Linux native dependencies
+      - name: Install Linux native & Tauri dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
@@ -72,7 +85,14 @@ jobs:
             pkg-config \
             clang \
             libclang-dev \
-            libasound2-dev
+            libasound2-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libssl-dev \
+            libxdo-dev \
+            patchelf \
+            xdg-utils
 
       - name: Install macOS native dependencies
         if: runner.os == 'macOS'

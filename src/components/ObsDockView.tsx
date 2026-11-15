@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { StreamSnapshot } from '../types/stream.ts';
+import { notifyBrowserPopoutLifecycle } from '../utils/runtime.ts';
 
 interface ObsDockViewProps {
   snapshot: StreamSnapshot;
   apiPost: (url: string, body?: unknown) => Promise<unknown>;
   onExitDock: () => void;
+  isPopout?: boolean;
 }
 
 export const ObsDockView: React.FC<ObsDockViewProps> = ({
   snapshot,
   apiPost,
   onExitDock,
+  isPopout = false,
 }) => {
   const [quickChat, setQuickChat] = useState('');
   const activeMedia = (snapshot.media_queue || []).find(
     (m) => m.status === 'playing' || m.status === 'paused',
   );
+
+  useEffect(() => {
+    if (!isPopout) return;
+    notifyBrowserPopoutLifecycle('obs_dock', true);
+    const onUnload = () => notifyBrowserPopoutLifecycle('obs_dock', false);
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+      notifyBrowserPopoutLifecycle('obs_dock', false);
+    };
+  }, [isPopout]);
 
   const handleSendQuickChat = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,21 +45,21 @@ export const ObsDockView: React.FC<ObsDockViewProps> = ({
 
   return (
     <div className="h-[100dvh] flex flex-col bg-[#090A0F] text-slate-100 text-xs overflow-hidden">
-      {/* Компактная шапка док-панели OBS Studio (аналог SE.Live) */}
-      <header className="px-3 py-2 border-b border-slate-800 bg-[#11131C] flex items-center justify-between gap-2 shrink-0">
-        <div className="flex items-center gap-2 truncate">
+      {/* Компактная адаптивная шапка док-панели OBS Studio (аналог SE.Live) */}
+      <header className="px-2.5 py-2 border-b border-slate-800 bg-[#11131C] flex flex-wrap items-center justify-between gap-1.5 shrink-0">
+        <div className="flex items-center gap-1.5 min-w-0">
           <span
-            className={`px-1.5 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap ${
+            className={`px-1.5 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap shrink-0 ${
               snapshot.obs.connected
                 ? 'bg-emerald-500/20 text-emerald-400'
                 : 'bg-slate-800 text-slate-400'
             }`}
           >
-            {snapshot.obs.connected ? 'OBS v5 OK' : 'Автономно'}
+            {snapshot.obs.connected ? 'OBS v5' : 'Автономно'}
           </span>
-          <span className="font-bold tracking-tight truncate">OBS Dock · SE.Live Local</span>
+          <span className="font-bold tracking-tight truncate">OBS Dock</span>
         </div>
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="flex flex-wrap items-center gap-1 shrink-0">
           <button
             type="button"
             onClick={() =>
@@ -60,7 +74,7 @@ export const ObsDockView: React.FC<ObsDockViewProps> = ({
             }`}
             title="Отключить/включить общую шину звука"
           >
-            {snapshot.audio_mixer?.master_muted ? '🔇 Мастер' : '🔊 Мастер'}
+            {snapshot.audio_mixer?.master_muted ? 'Mute Мастер' : 'Мастер'}
           </button>
           <button
             type="button"
@@ -76,17 +90,17 @@ export const ObsDockView: React.FC<ObsDockViewProps> = ({
             }`}
             title="Отключить/включить звуки алертов"
           >
-            {snapshot.audio_mixer?.alerts_muted ? '🔕 Алерты' : '🔔 Алерты'}
+            {snapshot.audio_mixer?.alerts_muted ? 'Mute Алерты' : 'Алерты'}
           </button>
-          <span className="font-mono tabular-nums text-[11px] text-amber-400">
-            🚂 Ур.{snapshot.hype_train?.level ?? 1}
+          <span className="font-mono tabular-nums text-[11px] text-amber-400 px-1">
+            Ур.{snapshot.hype_train?.level ?? 1}
           </span>
           <button
             type="button"
             onClick={onExitDock}
             className="px-2 py-1 rounded border border-slate-700 hover:border-blue-500 text-[11px] whitespace-nowrap"
           >
-            Полный пульт
+            {isPopout ? 'Вернуть в студию' : 'Полный пульт'}
           </button>
         </div>
       </header>

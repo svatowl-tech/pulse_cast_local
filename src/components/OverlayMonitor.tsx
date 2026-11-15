@@ -8,6 +8,7 @@ import type {
   WidgetLayoutConfig,
   WsBroadcast,
 } from '../types/stream.ts';
+import { resolveApiUrl, resolveAssetUrl } from '../utils/runtime.ts';
 
 interface OverlayMonitorProps {
   snapshot: StreamSnapshot;
@@ -622,7 +623,7 @@ export const OverlayMonitor: React.FC<OverlayMonitorProps> = ({
           )}
           <span className="text-slate-400 hidden sm:inline">{soundMuted ? 'Звук выкл' : 'Звук вкл'}</span>
           <a
-            href="/overlay"
+            href={resolveApiUrl('/overlay')}
             target="_blank"
             rel="noreferrer"
             className="text-blue-400 hover:text-blue-300 underline whitespace-nowrap"
@@ -681,7 +682,7 @@ export const OverlayMonitor: React.FC<OverlayMonitorProps> = ({
                 }}
               >
                 {el.image_url && (
-                  <img src={el.image_url} alt={el.name} className="w-full h-auto block rounded-lg pointer-events-none" />
+                  <img src={resolveAssetUrl(el.image_url)} alt={el.name} className="w-full h-auto block rounded-lg pointer-events-none" />
                 )}
                 {el.html && <div dangerouslySetInnerHTML={{ __html: el.html }} />}
               </div>
@@ -950,7 +951,7 @@ export const OverlayMonitor: React.FC<OverlayMonitorProps> = ({
                 if (customUrl) {
                   return (
                     <img
-                      src={customUrl}
+                      src={resolveAssetUrl(customUrl)}
                       alt={pt.name}
                       className="w-24 h-24 object-contain mx-auto pointer-events-none"
                     />
@@ -1004,7 +1005,7 @@ export const OverlayMonitor: React.FC<OverlayMonitorProps> = ({
           >
             {matchedVariation?.image_url && (
               <img
-                src={matchedVariation.image_url}
+                src={resolveAssetUrl(matchedVariation.image_url)}
                 alt=""
                 className="max-h-24 mx-auto mb-1.5 rounded object-contain"
               />

@@ -1,48 +1,26 @@
 import React, { useState } from 'react';
-import type { AgentResponse, StreamSnapshot, ThemeConfig } from '../types/stream.ts';
+import type { StreamSnapshot, ThemeConfig } from '../types/stream.ts';
 import { AiBotAndRecapPanel } from './AiBotAndRecapPanel.tsx';
+import { AiAgentConsolePanel } from './AiAgentConsolePanel.tsx';
 import { ObsWizardAndProfilePanel } from './ObsWizardAndProfilePanel.tsx';
 
 interface AgentAndThemesTabProps {
   snapshot: StreamSnapshot;
   apiPost: (url: string, body?: unknown) => Promise<unknown>;
+  agentFeedDetached?: boolean;
+  onPopoutAgentFeed?: () => void;
 }
 
-const PRESET_PROMPTS = [
-  'Включи звёздочки, смени сцену на Gaming Capture и отметь клип',
-  'Запусти Battle Royale и заставь всех чоков танцевать',
-  'Активируй плагин реакции на слово бум и включи тему Неон',
-  'Выведи тестовый донат алерт и включи субтитры',
-];
-
-export const AgentAndThemesTab: React.FC<AgentAndThemesTabProps> = ({ snapshot, apiPost }) => {
-  const [backend, setBackend] = useState<'http' | 'embedded'>(snapshot.llm.backend);
-  const [serverUrl, setServerUrl] = useState(snapshot.llm.server_url);
-  const [prompt, setPrompt] = useState('');
-  const [lastResponse, setLastResponse] = useState<AgentResponse | null>(null);
-  const [busy, setBusy] = useState(false);
-
+export const AgentAndThemesTab: React.FC<AgentAndThemesTabProps> = ({
+  snapshot,
+  apiPost,
+  agentFeedDetached = false,
+  onPopoutAgentFeed,
+}) => {
   const [customThemeName, setCustomThemeName] = useState('Моя тема оверлея');
   const [customAccent, setCustomAccent] = useState('#10B981');
   const [customSurface, setCustomSurface] = useState('#0F172A');
   const [customTarget, setCustomTarget] = useState<'dashboard' | 'overlay'>('overlay');
-
-  const runAgent = async (text?: string) => {
-    const q = (text ?? prompt).trim();
-    if (!q) return;
-    setBusy(true);
-    try {
-      const resp = (await apiPost('/api/agent', {
-        prompt: q,
-        backend,
-        server_url: serverUrl,
-      })) as AgentResponse;
-      setLastResponse(resp);
-      if (!text) setPrompt('');
-    } finally {
-      setBusy(false);
-    }
-  };
 
   const handleSaveCustomTheme = () => {
     const theme: ThemeConfig = {
@@ -69,80 +47,21 @@ export const AgentAndThemesTab: React.FC<AgentAndThemesTabProps> = ({ snapshot, 
       <AiBotAndRecapPanel snapshot={snapshot} apiPost={apiPost} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Локальный ИИ-агент с Function Calling */}
-        <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-sm font-semibold">Локальный ИИ-Агент (Function Calling)</h2>
-            <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-slate-800 text-xs">
-              <button
-                type="button"
-                onClick={() => setBackend('http')}
-                className={`px-2.5 py-1 rounded-md ${backend === 'http' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}
-              >
-                HTTP llama-server
-              </button>
-              <button
-                type="button"
-                onClick={() => setBackend('embedded')}
-                className={`px-2.5 py-1 rounded-md ${backend === 'embedded' ? 'bg-blue-600 text-white' : 'text-slate-500'}`}
-              >
-                Embedded llama-cpp-2
-              </button>
-            </div>
-          </div>
-
-          <input
-            value={serverUrl}
-            onChange={(e) => setServerUrl(e.target.value)}
-            placeholder="http://127.0.0.1:8081/v1/chat/completions"
-            className="w-full px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#0B0F17]"
+        {/* Локальный ИИ-агент с Function Calling (скрывается при выносе окна ИИ-Агент и Лента) */}
+        {!agentFeedDetached && (
+          <AiAgentConsolePanel
+            snapshot={snapshot}
+            apiPost={apiPost}
+            onPopout={onPopoutAgentFeed}
           />
-
-          <div className="flex flex-wrap gap-1.5">
-            {PRESET_PROMPTS.map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => void runAgent(p)}
-                className="px-2.5 py-1 text-[11px] text-left rounded-md bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-slate-800 hover:border-blue-500"
-              >
-                {p}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex gap-2">
-            <input
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Дайте команду ИИ-режиссёру..."
-              className="flex-1 px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#0B0F17]"
-            />
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => void runAgent()}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold whitespace-nowrap disabled:opacity-50"
-            >
-              {busy ? 'Выполняю...' : 'Выполнить'}
-            </button>
-          </div>
-
-          {lastResponse && (
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#0B0F17] border border-slate-200 dark:border-slate-800 text-xs space-y-2">
-              <div className="font-medium text-slate-900 dark:text-slate-100">{lastResponse.reply}</div>
-              <div className="text-[11px] font-mono text-slate-400">Режим: {lastResponse.backend_used}</div>
-              {lastResponse.tool_calls_executed.map((t, i) => (
-                <div key={i} className="font-mono text-[11px] text-emerald-500">
-                  → {t.name}: {t.result}
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+        )}
 
         {/* Темы оформления, кастомный конструктор и Бэкап профиля */}
-        <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-4">
+        <section
+          className={`bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-4 ${
+            agentFeedDetached ? 'lg:col-span-2' : ''
+          }`}
+        >
           <div>
             <h2 className="text-sm font-semibold mb-2">Готовые пакеты SuperThemes (StreamElements 1-клик)</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">

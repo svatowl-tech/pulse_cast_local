@@ -7,8 +7,10 @@ static/bundle/
 coverage/
 *.tsbuildinfo
 
-# Артефакты сборки Rust / Cargo
+# Артефакты сборки Rust / Cargo / Tauri
 target/
+src-tauri/target/
+src-tauri/gen/
 **/*.rs.bk
 
 # Локальные данные профиля, загруженные ассеты и веса моделей (Whisper / LLM)

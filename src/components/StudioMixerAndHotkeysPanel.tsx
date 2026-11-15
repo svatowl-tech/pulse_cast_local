@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import type { HotkeyActionKind, HotkeyBinding, StreamSnapshot, StudioAudioMixer } from '../types/stream.ts';
+import { isTauriRuntime } from '../utils/runtime.ts';
 import { playSynthTone, speakTts } from './audioSynth.ts';
 
 interface StudioMixerAndHotkeysPanelProps {
   snapshot: StreamSnapshot;
   apiPost: (url: string, body?: unknown) => Promise<unknown>;
   onTriggerHotkey?: (binding: HotkeyBinding) => void;
+  standalone?: boolean;
+  onPopout?: () => void;
 }
 
 const ACTION_LABELS: Record<HotkeyActionKind, string> = {
@@ -39,6 +42,8 @@ export const StudioMixerAndHotkeysPanel: React.FC<StudioMixerAndHotkeysPanelProp
   snapshot,
   apiPost,
   onTriggerHotkey,
+  standalone = false,
+  onPopout,
 }) => {
   const mixer = snapshot.audio_mixer;
   const hotkeys = snapshot.hotkeys || [];
@@ -144,7 +149,13 @@ export const StudioMixerAndHotkeysPanel: React.FC<StudioMixerAndHotkeysPanelProp
   ];
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    <div
+      className={`grid grid-cols-1 gap-4 ${
+        standalone
+          ? 'flex-1 min-h-0 overflow-y-auto custom-scroll lg:grid-cols-2 content-start'
+          : 'xl:grid-cols-2'
+      }`}
+    >
       {/* 4-канальный студийный аудио-микшер */}
       <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -156,7 +167,7 @@ export const StudioMixerAndHotkeysPanel: React.FC<StudioMixerAndHotkeysPanelProp
               Раздельная громкость для пульта и OBS Browser Source
             </p>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
               onClick={() => playSynthTone(587.33, 'fanfare', 0.65, mixer)}
@@ -171,15 +182,38 @@ export const StudioMixerAndHotkeysPanel: React.FC<StudioMixerAndHotkeysPanelProp
             >
               Тест TTS
             </button>
+            {!standalone && onPopout && (
+              isTauriRuntime() ? (
+                <button
+                  type="button"
+                  onClick={onPopout}
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-xs font-medium whitespace-nowrap"
+                  title="Вынести микшер и хоткеи в отдельное окно"
+                >
+                  В окно
+                </button>
+              ) : (
+                <a
+                  href="/?window=mixer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => onPopout()}
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-xs font-medium whitespace-nowrap"
+                  title="Открыть микшер и хоткеи в отдельном окне"
+                >
+                  В окно
+                </a>
+              )
+            )}
           </div>
         </div>
 
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {channels.map((ch) => (
-            <div key={ch.key} className="py-2.5 first:pt-1 last:pb-1 flex items-center gap-3">
-              <div className="w-32 shrink-0">
-                <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">{ch.title}</div>
-                <div className="text-[11px] text-slate-400">{ch.subtitle}</div>
+            <div key={ch.key} className="py-2.5 first:pt-1 last:pb-1 flex items-center gap-2 sm:gap-3">
+              <div className="w-24 sm:w-32 shrink-0">
+                <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">{ch.title}</div>
+                <div className="text-[11px] text-slate-400 truncate">{ch.subtitle}</div>
               </div>
               <input
                 type="range"

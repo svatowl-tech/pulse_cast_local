@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { AlertVariation, StreamEventKind, StreamSnapshot } from '../types/stream.ts';
+import { resolveAssetUrl } from '../utils/runtime.ts';
 
 interface AlertDesignerPanelProps {
   snapshot: StreamSnapshot;
@@ -176,11 +177,11 @@ export const AlertDesignerPanel: React.FC<AlertDesignerPanelProps> = ({ snapshot
                 className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs"
               >
                 {asset.kind === 'image' ? (
-                  <img src={asset.url} alt={asset.name} className="w-7 h-7 rounded object-cover" />
+                  <img src={resolveAssetUrl(asset.url)} alt={asset.name} className="w-7 h-7 rounded object-cover" />
                 ) : (
                   <button
                     type="button"
-                    onClick={() => void new Audio(asset.url).play()}
+                    onClick={() => void new Audio(resolveAssetUrl(asset.url)).play()}
                     className="px-1.5 py-0.5 rounded bg-blue-600/15 text-blue-500 font-mono text-[10px]"
                   >
                     Play
