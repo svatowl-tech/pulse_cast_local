@@ -60,8 +60,10 @@ impl ObsBridge {
                 let mut scenes_names = Vec::new();
                 let mut current_scene = String::new();
                 if let Ok(list) = client.scenes().list().await {
-                    current_scene = list.current_program_scene.name.clone();
                     scenes_names = list.scenes.into_iter().map(|s| s.id.name).collect();
+                }
+                if let Ok(cur) = client.scenes().current_program_scene().await {
+                    current_scene = cur.id.name;
                 }
 
                 {
@@ -137,7 +139,11 @@ impl ObsBridge {
     pub async fn set_scene(&self, scene_name: &str, state: &Arc<AppState>) -> bool {
         let mut guard = self.client.lock().await;
         if let Some(client) = guard.as_ref() {
-            match client.scenes().set_current_program_scene(scene_name).await {
+            match client
+                .scenes()
+                .set_current_program_scene(obws::requests::scenes::SceneId::Name(scene_name))
+                .await
+            {
                 Ok(_) => return true,
                 Err(err) => {
                     tracing::warn!("Сбой переключения сцены OBS '{}': {}", scene_name, err);

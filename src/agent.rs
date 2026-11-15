@@ -7,8 +7,8 @@
 use crate::bot::{process_stream_event, send_system_chat};
 use crate::obs::ObsBridge;
 use crate::state::{
-    AppState, AutomationScenario, ClipMarker, MiniGameKind, OverlayPlugin, PollOption,
-    ScenarioAction, StreamEvent, StreamEventKind, ViewerRole, WsBroadcast,
+    AppState, ClipMarker, MiniGameKind, OverlayPlugin, PollOption,
+    StreamEvent, StreamEventKind, ViewerRole, WsBroadcast,
 };
 use crate::whisper_sub::WhisperController;
 use chrono::Utc;
@@ -700,8 +700,7 @@ pub async fn execute_tool_calls(
                 let act = args["action"].as_str().unwrap_or("start");
                 let (goal, subathon, boss, poll, giveaway, msg) = {
                     let mut guard = state.snapshot.write().await;
-                    let mut out = String::new();
-                    match act {
+                    let out = match act {
                         "start" => {
                             guard.giveaway.active = true;
                             if let Some(p) = args["prize"].as_str() {
@@ -711,24 +710,24 @@ pub async fn execute_tool_calls(
                                 guard.giveaway.keyword = k.to_string();
                             }
                             guard.giveaway.participants.clear();
-                            out = format!("Розыгрыш '{}' открыт! Ключевое слово: {}", guard.giveaway.prize, guard.giveaway.keyword);
+                            format!("Розыгрыш '{}' открыт! Ключевое слово: {}", guard.giveaway.prize, guard.giveaway.keyword)
                         }
                         "pick_winner" => {
                             guard.giveaway.active = false;
                             if guard.giveaway.participants.is_empty() {
-                                out = "Участников розыгрыша пока нет".to_string();
+                                "Участников розыгрыша пока нет".to_string()
                             } else {
                                 let idx = (Utc::now().timestamp_subsec_millis() as usize) % guard.giveaway.participants.len();
                                 let winner = guard.giveaway.participants[idx].clone();
                                 guard.giveaway.last_winner = Some(winner.clone());
-                                out = format!("Победитель розыгрыша: {}!", winner);
+                                format!("Победитель розыгрыша: {}!", winner)
                             }
                         }
                         _ => {
                             guard.giveaway.active = false;
-                            out = "Розыгрыш остановлен".to_string();
+                            "Розыгрыш остановлен".to_string()
                         }
-                    }
+                    };
                     (
                         guard.goal.clone(),
                         guard.subathon.clone(),

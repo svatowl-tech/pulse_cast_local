@@ -1230,16 +1230,18 @@ impl AppState {
             guard.clone()
         };
         let path = self.profile_path.clone();
-        if let Err(err) = tokio::task::spawn_blocking(move || {
+        match tokio::task::spawn_blocking(move || {
             let tmp_path = path.with_extension("json.tmp");
-            let json = serde_json::to_string_pretty(&snapshot_clone)?;
-            std::fs::write(&tmp_path, json)?;
-            std::fs::rename(&tmp_path, &path)?;
-            Ok::<_, anyhow::Error>(())
+            let json = serde_json::to_string_pretty(&snapshot_clone).map_err(|e| e.to_string())?;
+            std::fs::write(&tmp_path, json).map_err(|e| e.to_string())?;
+            std::fs::rename(&tmp_path, &path).map_err(|e| e.to_string())?;
+            Ok::<(), String>(())
         })
         .await
         {
-            tracing::error!("Ошибка фонового сохранения профиля: {}", err);
+            Ok(Ok(())) => {}
+            Ok(Err(err)) => tracing::error!("Ошибка записи профиля на диск: {}", err),
+            Err(err) => tracing::error!("Ошибка фонового сохранения профиля: {}", err),
         }
     }
 

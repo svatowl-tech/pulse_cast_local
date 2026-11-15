@@ -167,7 +167,7 @@ async fn run_capture_pipeline(
             return;
         };
 
-        let src_rate = config.sample_rate().0;
+        let src_rate = config.sample_rate();
         let channels = config.channels() as usize;
         let mut ring_buffer: Vec<f32> = Vec::with_capacity(WINDOW_SAMPLES);
 
@@ -257,14 +257,10 @@ pub fn run_whisper_inference(model_path: &Path, language: &str, samples: &[f32])
         .full(params, samples)
         .map_err(|e| format!("Ошибка инференса Whisper: {:?}", e))?;
 
-    let num_segments = w_state
-        .full_n_segments()
-        .map_err(|e| format!("Ошибка чтения числа сегментов: {:?}", e))?;
-
     let mut output = String::new();
-    for i in 0..num_segments {
-        if let Ok(seg) = w_state.full_get_segment_text(i) {
-            output.push_str(seg.trim());
+    for seg in w_state.as_iter() {
+        if let Ok(txt) = seg.to_str_lossy() {
+            output.push_str(txt.trim());
             output.push(' ');
         }
     }

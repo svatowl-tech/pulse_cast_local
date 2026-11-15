@@ -450,8 +450,11 @@ async fn handle_chat_command(
                         0
                     };
                     let payout = wager * mult;
-                    if let Some(p) = guard.viewers.get_mut(username) {
+                    let new_balance = guard.viewers.get_mut(username).map(|p| {
                         p.currency = p.currency - wager + payout;
+                        p.currency
+                    });
+                    if let Some(bal) = new_balance {
                         let spin = SlotsSpinResult {
                             username: username.to_string(),
                             reels: [r0.clone(), r1.clone(), r2.clone()],
@@ -462,9 +465,9 @@ async fn handle_chat_command(
                         };
                         guard.last_slots_spin = Some(spin);
                         bot_reply = Some(if mult > 0 {
-                            format!("🎰 @{} [{} {} {}] ДЖЕКПОТ +{} (x{})! Баланс: {}", username, r0, r1, r2, payout, mult, p.currency)
+                            format!("🎰 @{} [{} {} {}] ДЖЕКПОТ +{} (x{})! Баланс: {}", username, r0, r1, r2, payout, mult, bal)
                         } else {
-                            format!("🎰 @{} [{} {} {}] Мимо (-{}). Баланс: {}", username, r0, r1, r2, wager, p.currency)
+                            format!("🎰 @{} [{} {} {}] Мимо (-{}). Баланс: {}", username, r0, r1, r2, wager, bal)
                         });
                         se_da_msg = Some(WsBroadcast::SeDaUpdated {
                             media_share_config: guard.media_share_config.clone(),
