@@ -1,6 +1,6 @@
 [package]
 name = "pulsecast-local"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Автономная локальная стриминговая платформа на Rust (аналог StreamElements, Stream Avatars и RutonyChat) с OBS-оверлеем, Whisper-субтитрами, плагинами и локальным ИИ-агентом."
 authors = ["PulseCast Contributors"]

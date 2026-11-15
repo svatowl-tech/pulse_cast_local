@@ -1,6 +1,6 @@
 [package]
 name = "pulsecast-desktop"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Нативное многооконное десктопное приложение PulseCast Local на базе Tauri v2"
 authors = ["PulseCast Contributors"]
