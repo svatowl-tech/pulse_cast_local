@@ -1,6 +1,8 @@
 {
   "name": "PulseCast Local",
   "description": "Локальная офлайн-стриминговая платформа на Rust (аналог StreamElements, Stream Avatars и RutonyChat) с OBS-оверлеем, Whisper-субтитрами, плагинами и ИИ-агентом.",
-  "requestFramePermissions": ["microphone"],
+  "requestFramePermissions": [
+    "microphone"
+  ],
   "majorCapabilities": []
 }

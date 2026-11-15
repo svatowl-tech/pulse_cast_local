@@ -105,7 +105,7 @@ mkdir -p models
 
 ### 3. Сборка фронтенда и запуск Rust-сервера
 ```bash
-npm ci && npm run build
+npm install && npm run build
 mkdir -p static && cp -r dist/* static/
 cargo run --release
 ```
