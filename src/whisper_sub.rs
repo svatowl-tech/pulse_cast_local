@@ -172,7 +172,7 @@ async fn run_capture_pipeline(
         let mut ring_buffer: Vec<f32> = Vec::with_capacity(WINDOW_SAMPLES);
 
         let stream_res = device.build_input_stream(
-            &config.into(),
+            config.into(),
             move |data: &[f32], _| {
                 // Сводим многоканальный звук в моно и ресемплируем к 16 кГц
                 let mono = downmix_to_mono(data, channels);

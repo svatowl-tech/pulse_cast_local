@@ -16,6 +16,7 @@ use llama_cpp_2::{
     context::params::LlamaContextParams,
     llama_backend::LlamaBackend,
     llama_batch::LlamaBatch,
+    #[allow(deprecated)]
     model::{params::LlamaModelParams, AddBos, LlamaModel, Special},
     sampling::LlamaSampler,
 };
@@ -397,6 +398,7 @@ async fn run_http_llama_server(
 }
 
 /// Прямой инференс GGUF-модели в процессе через `llama-cpp-2` (внутри `spawn_blocking`).
+#[allow(deprecated)]
 async fn run_embedded_llama(
     model_path: &str,
     prompt: &str,
